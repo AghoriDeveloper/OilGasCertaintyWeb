@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div style="width: 60%; margin-left: auto; margin-right: auto;">
+        {% if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
+        {% endif %}
+    </div>
+
+{% endblock content %}

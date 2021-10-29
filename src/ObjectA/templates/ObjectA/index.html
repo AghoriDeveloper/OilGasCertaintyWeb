@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="main-div">
+        <div class="sub-div-1">
+            <div>
+                <p class="page-title">Object A</p>
+                <p class="page-description">Give required details to get production values.</p>
+            </div>
+
+            <div>
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_prodType" class="col-sm-3 control-label" style="font-weight: bold;">Product Type</label>
+                        <div class="col-sm-2" style="padding-top: 1%;">
+                            <select name="prodType" id="id_prodType" class="form-control" class="form-input-option">
+                                <option value="oil">Oil</option>
+                                <option value="gas">Gas</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-7"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_threshold" class="col-sm-3 control-label" style="font-weight: bold;">Threshold</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="number" name="threshold" id="id_threshold" class="form-control" min="5" max="95" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_curveType" class="col-sm-3 control-label" style="font-weight: bold;">Product Type</label>
+                        <div class="col-sm-2" style="padding-top: 1%;">
+                            <select name="curveType" id="id_curveType" class="form-control" class="form-input-option">
+                                <option value="hyperbolic">Hyperbolic</option>
+                                <option value="exponential">Exponential</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-7"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Previous 36 Months</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="file" name="excelFile" id="id_excelFile" class="form-control" placeholder="Upload file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                            <!-- <input type="file" id="excelFile" class="form-control" [(ngModel)]="objAVal.excelFile" style="text-align: center;" /> -->
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <input type="submit" value="Submit" class="btn btn-primary col-sm-offset-3" style="margin-top: 2%; padding: 1% 5% 1% 5%;" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .main-div {
+            width: 100%;
+            height: 82vh;
+            background-color: white;
+            padding-top: 5vh;
+        }
+
+        .sub-div-1 {
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2vw;
+            font-weight: 600;
+            color: #525252;
+        }
+
+        .page-description {
+            padding-top: 2%;
+            font-size: 1vw;
+            font-weight: 400;
+            color: #525252;
+        }
+
+        .form-input-option {
+            width: 50%;
+            padding: 1%;
+        }
+
+        .form-input-number {
+            width: 48%;
+            padding: 1%;
+        }
+
+        @media only screen and (max-width: 650px) {
+            .sub-div-1 {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 4vw;
+            }
+
+            .page-description {
+                font-size: 2vw;
+                font-weight: 400;
+            }
+        }
+    </style>
+
+{% endblock content %}
