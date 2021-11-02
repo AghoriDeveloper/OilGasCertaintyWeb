@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="main-div">
+        <div class="sub-div-1">
+            <div>
+                <p class="page-title">Object B</p>
+                <p class="page-description">Give required details to get production values.</p>
+            </div>
+
+            <div>
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_oilPrice" class="col-sm-3 control-label" style="font-weight: bold;">Base Oil Price</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="number" name="oilPrice" id="id_oilPrice" required class="form-control" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_oilSD" class="col-sm-3 control-label" style="font-weight: bold;">Monthly Oil Standard Deviation</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="number" name="oilSD" id="id_oilSD" required class="form-control" value="9" min="0" max="100" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_gasPrice" class="col-sm-3 control-label" style="font-weight: bold;">Base Gas Price</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="number" name="gasPrice" id="id_gasPrice" required class="form-control" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_gasSD" class="col-sm-3 control-label" style="font-weight: bold;">Monthly Gas Standard Deviation</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="number" name="gasSD" id="id_gasSD" required class="form-control" value="14" min="0" max="100" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_percLine" class="col-sm-3 control-label" style="font-weight: bold;">Extra Percentile Line</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="number" name="percLine" id="id_percLine" required class="form-control" value="65" min="5" max="95" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+<!--                    <tr><th><label for="id_oilPrice">OilPrice:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="number" name="oilPrice" required id="id_oilPrice"></td></tr>-->
+<!--                    <tr><th><label for="id_oilSD">OilSD:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="number" name="oilSD" required id="id_oilSD"></td></tr>-->
+<!--                    <tr><th><label for="id_gasPrice">GasPrice:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="number" name="gasPrice" required id="id_gasPrice"></td></tr>-->
+<!--                    <tr><th><label for="id_gasSD">GasSD:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="number" name="gasSD" required id="id_gasSD"></td></tr>-->
+<!--                    <tr><th><label for="id_percLine">PercLine:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="number" name="percLine" required id="id_percLine"></td></tr>-->
+
+                    <input type="submit" value="Submit" class="btn btn-primary col-sm-offset-3" style="margin-top: 2%; padding: 1% 5% 1% 5%;"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        .main-div {
+            width: 100%;
+            height: 82vh;
+            background-color: white;
+            padding-top: 5vh;
+        }
+
+        .sub-div-1 {
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2vw;
+            font-weight: 600;
+            color: #525252;
+        }
+
+        .page-description {
+            padding-top: 2%;
+            font-size: 1vw;
+            font-weight: 400;
+            color: #525252;
+        }
+
+        .form-input-option {
+            width: 50%;
+            padding: 1%;
+        }
+
+        .form-input-number {
+            width: 48%;
+            padding: 1%;
+        }
+
+        @media only screen and (max-width: 650px) {
+            .sub-div-1 {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 4vw;
+            }
+
+            .page-description {
+                font-size: 2vw;
+                font-weight: 400;
+            }
+        }
+    </style>
+
+{% endblock content %}
