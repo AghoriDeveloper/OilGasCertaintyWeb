@@ -5,7 +5,7 @@
     <div class="main-div">
         <div class="sub-div-1">
             <div>
-                <p class="page-title">Object A</p>
+                <p class="page-title">Decline Curve</p>
                 <p class="page-description">Give required details to get production values.</p>
             </div>
 
@@ -13,7 +13,7 @@
                 <form method="POST" class="post-form">
                     {% csrf_token %}
                     <div class="form-group" style="padding-top: 2%;">
-                        <label for="id_prodType" class="col-sm-3 control-label" style="font-weight: bold;">Product Type</label>
+                        <label for="id_prodType" class="col-sm-3 control-label" style="font-weight: bold;">Oil or Gas</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
                             <select name="prodType" id="id_prodType" class="form-control" class="form-input-option">
                                 <option value="oil">Oil</option>
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="form-group" style="padding-top: 2%;">
-                        <label for="id_threshold" class="col-sm-3 control-label" style="font-weight: bold;">Threshold</label>
+                        <label for="id_threshold" class="col-sm-3 control-label" style="font-weight: bold;">Probability of Exceeding</label>
                         <div class="col-sm-6" style="padding-top: 1%;">
                             <input type="number" name="threshold" id="id_threshold" class="form-control" min="5" max="95" class="form-input-number" />
                         </div>
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="form-group" style="padding-top: 2%;">
-                        <label for="id_curveType" class="col-sm-3 control-label" style="font-weight: bold;">Product Type</label>
+                        <label for="id_curveType" class="col-sm-3 control-label" style="font-weight: bold;">Hyperbolic or Exponential</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
                             <select name="curveType" id="id_curveType" class="form-control" class="form-input-option">
                                 <option value="hyperbolic">Hyperbolic</option>

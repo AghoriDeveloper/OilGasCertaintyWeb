@@ -15,14 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import ObjectA.views as ObjA
-import ObjectB.views as ObjB
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('obj-a', include('ObjectA.urls')),
-    path('obj-b', include('ObjectB.urls')),
+    path('obj-a/', include('ObjectA.urls')),
+    path('obj-b/', include('ObjectB.urls')),
+    path('obj-abc/', include('ObjectABC.urls')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('image/favicon.ico')))
 ]
