@@ -11,9 +11,9 @@ def index(request):
         if objb.is_valid():
             print(objb)
 
-            # chart = setObjecBValues(objb['prodType'].value(), objb['threshold'].value(), objb['curveType'].value(), objb['excelFile'].value())
+            chart = setObjecBValues(objb['oilPrice'].value(), objb['oilSD'].value(), objb['gasPrice'].value(), objb['gasSD'].value(), objb['percLine'].value())
             objb.save()
 
-            # return render(request, "ObjectB/chart.html", {'chart': chart})
+            return render(request, "ObjectB/chart.html", {'chart': chart})
 
     return render(request, "ObjectB/index.html", {'form': objb})
