@@ -85,9 +85,9 @@ def plotCurve(T, Q):
     ax.set_xlabel("Time (Months)", fontsize=15)
 
     if ProdType == "oil":
-        ax.set_ylabel("Oil Production", fontsize=15)
+        ax.set_ylabel("Production (BOPD)", fontsize=15)
     elif ProdType == "gas":
-        ax.set_ylabel("Gas Production", fontsize=15)
+        ax.set_ylabel("Production (MSCFGPD)", fontsize=15)
 
     if CurveType == "hyperbolic":
         hyp_decline = decline_curve("hyperbolic", Q[0])
@@ -106,7 +106,7 @@ def plotCurve(T, Q):
         min_val = min([min(curve) for curve in [pred_hyp]])
         max_val = max([max(curve) for curve in [pred_hyp]])
 
-        ax.plot(T_ext, pred_hyp, color="green", linewidth=5, alpha=0.5, label="Hyperbolic")
+        ax.plot(T_ext, pred_hyp, color="green", linewidth=5, alpha=0.5, label="Hyperbolic Best Fit (" + str(Threshold) + "%)")
     elif CurveType == "exponential":
         exp_decline = decline_curve("exponential", Q[0])
         popt_exp, pcov_exp = curve_fit(exp_decline, T, Q, method="trf")
@@ -121,7 +121,7 @@ def plotCurve(T, Q):
         min_val = min([min(curve) for curve in [pred_exp]])
         max_val = max([max(curve) for curve in [pred_exp]])
 
-        ax.plot(T_ext, pred_exp, color="green", linewidth=5, alpha=0.5, label="Exponential")
+        ax.plot(T_ext, pred_exp, color="green", linewidth=5, alpha=0.5, label="Exponential Best Fit (" + str(Threshold) + "%)")
 
     ax.set_ylim(min_val - 20, max_val + 20)
     # ax.ticklabel_format(fontsize=25)
@@ -223,7 +223,7 @@ def percentageLine(T, Q, ax, Q_Pred):
         min_val = min([min(curve) for curve in [pred_hyp]])
         max_val = max([max(curve) for curve in [pred_hyp]])
 
-        ax.plot(T_ext, pred_hyp, color="red", linewidth=5, alpha=0.5, label="Probability Line")
+        ax.plot(T_ext, pred_hyp, color="red", linewidth=5, alpha=0.5, label="Percentile Fit at " + str(Threshold) + "% Percentile")
     elif CurveType == "exponential":
         exp_decline = decline_curve("exponential", Q[0])
         popt_exp, pcov_exp = curve_fit(exp_decline, T, Q, method="trf")
@@ -238,10 +238,11 @@ def percentageLine(T, Q, ax, Q_Pred):
         min_val = min([min(curve) for curve in [pred_exp]])
         max_val = max([max(curve) for curve in [pred_exp]])
 
-        ax.plot(T_ext, pred_exp, color="red", linewidth=5, alpha=0.5, label="Probability Line")
+        ax.plot(T_ext, pred_exp, color="red", linewidth=5, alpha=0.5, label="Percentile Fit at " + str(Threshold) + "% Percentile")
 
     ax.set_ylim(min_val - 20, max_val + 20)
     # ax.ticklabel_format(fontsize=25)
+    plt.legend(loc='upper right')
     ax.legend(fontsize=15)
     # plt.show()
     plt.tight_layout()

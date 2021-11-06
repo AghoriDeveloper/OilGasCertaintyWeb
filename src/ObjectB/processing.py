@@ -12,7 +12,7 @@ from io import BytesIO
 
 
 OilPrice, OilSD, GasPrice, GasSD, PercLine = 0, 0, 0, 0, 0
-Chart = -1
+ChartOil, ChartGas = -1, -1
 
 def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
     global OilPrice, OilSD, GasPrice, GasSD, PercLine, Chart
@@ -24,7 +24,7 @@ def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
     
     value_verify()
 
-    return Chart
+    return ChartOil, ChartGas
 
 
 def getZ(perc):
@@ -79,28 +79,27 @@ def create_table(oil_mid, gas_mid):
 
 
 def bar_plot(oil_perc, gas_perc):
-    global Chart
+    global ChartOil, ChartGas
 
-    fig, a = plt.subplots(1, 2, squeeze=False)
+    # -------------------- Oil Plot --------------------
+    fig, ax = plt.subplots(1, figsize=(16, 16))
+    ax.set_title("Decline Curve Analysis", fontsize=28)
+
     label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     oil_perc = [int(a) for a in oil_perc]
 
-    # plt.bar(label, oil_perc, color='orange', width=0.4)
-    a[0][0].plot(label, oil_perc)
-    a[0][0].plot(label, oil_perc, '*')
+    ax.scatter(label, oil_perc, color="orange", marker=".", s=250, linewidth=3)
+    ax.set_xlabel("Time (Months)", fontsize=25)
+
+    ax.plot(label, oil_perc)
+    # ax.plot(label, oil_perc, '*')
 
     plt.xlabel("Months")
-    plt.ylim(min(oil_perc)-5, max(oil_perc)+5)
-    plt.ylabel("Assumed Price and Percentile Price")
-    a[0][0].set_title("Oil Percentile Price")
-
-    a[0][1].plot(label, gas_perc)
-    a[0][1].plot(label, gas_perc, '*')
-
-    # a[0][1].xlabel("Months")
-    # a[0][1].ylim(min(gas_perc) - 5, max(gas_perc) + 5)
-    # a[0][1].ylabel("Assumed Price and Percentile Price")
-    a[0][1].set_title("Gas Percentile Price")
+    # plt.ylim(min(oil_perc) - 5, max(oil_perc) + 5)
+    ax.set_ylabel("Oil Price ($/BO)", fontsize=25)
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    ax.set_title(str(PercLine) + "% Likelihood of Oil Price Being Above (months into the future)", fontsize=28)
     # plt.show()
 
     buffer = BytesIO()
@@ -111,4 +110,36 @@ def bar_plot(oil_perc, gas_perc):
     graph = graph.decode('utf-8')
     buffer.close()
 
-    Chart = graph
+    ChartOil = graph
+
+    # -------------------- Gas Plot --------------------
+    plt.close()
+    fig, ax = plt.subplots(1, figsize=(16, 16))
+    ax.set_title("Decline Curve Analysis", fontsize=28)
+
+    label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    gas_perc = [int(a) for a in gas_perc]
+
+    ax.scatter(label, gas_perc, color="orange", marker=".", s=250, linewidth=3)
+    ax.set_xlabel("Time (Months)", fontsize=25)
+
+    ax.plot(label, gas_perc)
+    # ax.plot(label, gas_perc, '*')
+
+    plt.xlabel("Months")
+    # plt.ylim(min(gas_perc) - 5, max(gas_perc) + 5)
+    ax.set_ylabel("Gas Price ($/MSCFG)", fontsize=25)
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    ax.set_title(str(PercLine) + "% Likelihood of Gas Price Being Above (months into the future)", fontsize=28)
+    # plt.show()
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graph = base64.b64encode(image_png)
+    graph = graph.decode('utf-8')
+    buffer.close()
+
+    ChartGas = graph
