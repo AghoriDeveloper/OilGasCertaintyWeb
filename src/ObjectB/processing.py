@@ -113,7 +113,7 @@ def bar_plot(oil_perc, gas_perc):
     ChartOil = graph
 
     # -------------------- Gas Plot --------------------
-    plt.close()
+    # plt.close()
     fig, ax = plt.subplots(1, figsize=(16, 16))
     ax.set_title("Decline Curve Analysis", fontsize=28)
 
