@@ -21,9 +21,6 @@ class ObjABCModel(models.Model):
     oilProdCost = models.FloatField()
     gasProdCost = models.FloatField()
 
-    outputExcelFile = models.CharField(max_length=200)
-    hedgedExcelFile = models.CharField(max_length=200)
-
 
     def __str__(self):
         return self.oilPrice + ' ' + self.gasPrice

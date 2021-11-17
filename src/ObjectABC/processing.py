@@ -45,9 +45,9 @@ def setObjecABCValues(product, scf_bo, bc_mmscfg, oilPrice, oilSD, gasPrice, gas
 def getExcel():
     global df, percentile, col7, col8, col9, col10, OutputExcelFile, HedgedExcelFile
 
-    import_file_path = os.path.expanduser("~") + "/Desktop/" + OutputExcelFile
+    import_file_path = OutputExcelFile
     df = pd.read_excel(import_file_path)
-    import_file_path = os.path.expanduser("~") + "/Desktop/" + HedgedExcelFile
+    import_file_path = HedgedExcelFile
     df_hedged = pd.read_excel(import_file_path)
 
     col7 = df_hedged.iloc[:, [0]]
