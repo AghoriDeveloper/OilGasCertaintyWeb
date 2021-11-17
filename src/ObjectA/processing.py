@@ -28,7 +28,7 @@ def setObjecAValues(prodType, threshold, curveType, excelFile):
 def getExcel():
     global df, ProdType, ExcelFile
 
-    df = pd.read_excel(os.path.expanduser("~") + "/Desktop/" + ExcelFile)
+    df = pd.read_excel(ExcelFile)
     # print(ProdType)
 
     df = df.dropna(axis=1)
