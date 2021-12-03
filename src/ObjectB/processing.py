@@ -64,7 +64,7 @@ def create_table(oil_mid, gas_mid):
     z_val = getZ(int(PercLine))
 
     std_dev_oil_price = (int(OilPrice) * int(OilSD)) / 100
-    std_dev_gas_price = (int(GasPrice) * int(GasSD)) / 100
+    std_dev_gas_price = (float(GasPrice) * int(GasSD)) / 100
 
     for i in range(1, len(oil_mid)):
         # oil_perc.append((oil_mid[i] - z_val) * (i ** 0.5))
@@ -83,7 +83,7 @@ def bar_plot(oil_perc, gas_perc):
 
     # -------------------- Oil Plot --------------------
     fig, ax = plt.subplots(1, figsize=(16, 16))
-    ax.set_title("Decline Curve Analysis", fontsize=28)
+    ax.set_title("Product Price Analysis, " + str(PercLine) + "% Probability of Exceeding the Green Line", fontsize=28)
 
     label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     oil_perc = [int(a) for a in oil_perc]
@@ -115,7 +115,7 @@ def bar_plot(oil_perc, gas_perc):
     # -------------------- Gas Plot --------------------
     # plt.close()
     fig, ax = plt.subplots(1, figsize=(16, 16))
-    ax.set_title("Decline Curve Analysis", fontsize=28)
+    ax.set_title("Product Price Analysis, " + str(PercLine) + "% Probability of Exceeding the Green Line", fontsize=28)
 
     label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     gas_perc = [int(a) for a in gas_perc]
@@ -128,7 +128,7 @@ def bar_plot(oil_perc, gas_perc):
 
     plt.xlabel("Months")
     # plt.ylim(min(gas_perc) - 5, max(gas_perc) + 5)
-    ax.set_ylabel("Gas Price ($/MSCFG)", fontsize=25)
+    ax.set_ylabel("Gas Price ($/MSCF)", fontsize=25)
     plt.xticks(fontsize=20)
     plt.yticks(fontsize=20)
     ax.set_title(str(PercLine) + "% Likelihood of Gas Price Being Above (months into the future)", fontsize=28)

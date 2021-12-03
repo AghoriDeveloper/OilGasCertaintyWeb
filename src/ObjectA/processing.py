@@ -78,7 +78,7 @@ def L2_norm(Q, Q_obs):
 def plotCurve(T, Q):
     global ProdType, CurveType
     fig, ax = plt.subplots(1, figsize=(16, 16))
-    ax.set_title("Decline Curve Analysis", fontsize=18)
+    ax.set_title("Decline Curve Analysis, " + str(Threshold) + "% Probability of Exceeding the Green Line", fontsize=18)
     ax.set_xlim(min(T) - 5, max(T) + 15)
 
     ax.scatter(T, Q, color="black", marker=".", s=250, linewidth=3)
@@ -87,7 +87,7 @@ def plotCurve(T, Q):
     if ProdType == "oil":
         ax.set_ylabel("Production (BOPD)", fontsize=15)
     elif ProdType == "gas":
-        ax.set_ylabel("Production (MSCFGPD)", fontsize=15)
+        ax.set_ylabel("Production (MSCFPD)", fontsize=15)
 
     if CurveType == "hyperbolic":
         hyp_decline = decline_curve("hyperbolic", Q[0])
