@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 from scipy.optimize import curve_fit
 import math
 import xlsxwriter
@@ -94,7 +96,7 @@ def bar_plot(oil_perc, gas_perc):
     ax.plot(label, oil_perc)
     # ax.plot(label, oil_perc, '*')
 
-    plt.xlabel("Months")
+    plt.xlabel("Time (Months)")
     # plt.ylim(min(oil_perc) - 5, max(oil_perc) + 5)
     ax.set_ylabel("Oil Price ($/BO)", fontsize=25)
     plt.xticks(fontsize=20)
@@ -126,7 +128,7 @@ def bar_plot(oil_perc, gas_perc):
     ax.plot(label, gas_perc)
     # ax.plot(label, gas_perc, '*')
 
-    plt.xlabel("Months")
+    plt.xlabel("Time (Months)")
     # plt.ylim(min(gas_perc) - 5, max(gas_perc) + 5)
     ax.set_ylabel("Gas Price ($/MSCF)", fontsize=25)
     plt.xticks(fontsize=20)
