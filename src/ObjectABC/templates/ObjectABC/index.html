@@ -16,7 +16,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_product" class="col-sm-3 control-label" style="font-weight: bold;">Oil or Gas</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
-                            <select name="product" id="id_product" class="form-control" class="form-input-option">
+                            <select name="product" id="id_product" class="form-control" class="form-input-option" onchange="onSelectProd()">
                                 <option value="oil">Oil</option>
                                 <option value="gas">Gas</option>
                             </select>
@@ -34,9 +34,9 @@
                         </div>
 
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
-                            <label for="id_bc_mmscfg" class="col-sm-3 control-label" style="font-weight: bold;">BC/MSCFG</label>
+                            <label for="id_bc_mmscfg" class="col-sm-3 control-label" style="font-weight: bold;">BC/MMSCFG</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="bc_mmscfg" id="id_bc_mmscfg" class="form-control" value="56" class="form-input-number" />
+                                <input type="number" name="bc_mmscfg" id="id_bc_mmscfg" class="form-control" value="56" class="form-input-number" disabled />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -186,6 +186,23 @@
             </form>
         </div>
     </div>
+
+
+
+    <script>
+    function onSelectProd() {
+        var type = document.getElementById("id_product");
+        console.log(type);
+        if (type.value == "gas") {
+            document.getElementById("id_scf_bo").disabled = true;
+            document.getElementById("id_bc_mmscfg").disabled = false;
+        }
+        else {
+            document.getElementById("id_scf_bo").disabled = false;
+            document.getElementById("id_bc_mmscfg").disabled = true;
+        }
+    }
+    </script>
 
 
 

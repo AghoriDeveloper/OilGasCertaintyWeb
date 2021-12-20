@@ -2,6 +2,12 @@
 
 {% block content %}
 
+    <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center;">
+        {% if threshold %}
+            <p style="font-size: 1.5vw; font-weight: 600;">Decline Curve Analysis, {{threshold}}% Probability of Being Above the <span style="color: red;">Red Line</span></p>
+        {% endif %}
+    </div>
+
     <div style="width: 60%; margin-left: auto; margin-right: auto;">
         {% if chart %}
             <img src="data:image/png;base64, {{chart|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />

@@ -26,9 +26,9 @@ def index(request):
             root.destroy()
 
             # chart = setObjecAValues(obja['prodType'].value(), obja['threshold'].value(), obja['curveType'].value(), obja['excelFile'].value())
-            chart = setObjecAValues(obja['prodType'].value(), obja['threshold'].value(), obja['curveType'].value(), import_file_path)
+            chart, threshold = setObjecAValues(obja['prodType'].value(), obja['threshold'].value(), obja['curveType'].value(), import_file_path)
             obja.save()
 
-            return render(request, "ObjectA/chart.html", {'chart': chart})
+            return render(request, "ObjectA/chart.html", {'chart': chart, 'threshold': threshold})
 
     return render(request, "ObjectA/index.html", {'form': obja})

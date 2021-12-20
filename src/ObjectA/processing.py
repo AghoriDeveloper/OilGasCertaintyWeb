@@ -13,6 +13,7 @@ import base64
 from io import BytesIO
 
 
+ChartThreshold = 0
 ProdType, Threshold, CurveType, ExcelFile = '', 0, '', ''
 Chart = -1
 
@@ -25,7 +26,7 @@ def setObjecAValues(prodType, threshold, curveType, excelFile):
     
     getExcel()
 
-    return Chart
+    return Chart, ChartThreshold
 
 def getExcel():
     global df, ProdType, ExcelFile
@@ -78,9 +79,10 @@ def L2_norm(Q, Q_obs):
 
 
 def plotCurve(T, Q):
-    global ProdType, CurveType
+    global ProdType, CurveType, ChartThreshold
     fig, ax = plt.subplots(1, figsize=(16, 16))
-    ax.set_title("Decline Curve Analysis, " + str(Threshold) + "% Probability of Exceeding the Green Line", fontsize=18)
+    ChartThreshold = Threshold
+    # ax.set_title("Decline Curve Analysis, " + str(Threshold) + "% Probability of Being Above the Red Line", fontsize=18)
     ax.set_xlim(min(T) - 5, max(T) + 15)
 
     ax.scatter(T, Q, color="black", marker=".", s=250, linewidth=3)
