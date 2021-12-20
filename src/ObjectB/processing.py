@@ -1,8 +1,3 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use('Agg')
 from scipy.optimize import curve_fit
 import math
 import xlsxwriter
@@ -11,10 +6,15 @@ import os
 from django.conf import settings
 import base64
 from io import BytesIO
-
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 
 OilPrice, OilSD, GasPrice, GasSD, PercLine = 0, 0, 0, 0, 0
 ChartOil, ChartGas = -1, -1
+
 
 def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
     global OilPrice, OilSD, GasPrice, GasSD, PercLine, Chart
@@ -23,7 +23,7 @@ def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
     GasPrice = gasPrice
     GasSD = gasSD
     PercLine = percLine
-    
+
     value_verify()
 
     return ChartOil, ChartGas
@@ -69,13 +69,12 @@ def create_table(oil_mid, gas_mid):
     std_dev_gas_price = (float(GasPrice) * int(GasSD)) / 100
 
     for i in range(1, len(oil_mid)):
-        # oil_perc.append((oil_mid[i] - z_val) * (i ** 0.5))
         oil_perc.append(float(OilPrice) + (std_dev_oil_price * z_val * (i ** 0.5)))
-        gas_perc.append(float(GasPrice) + (std_dev_gas_price * z_val * (i ** 0.5)))
+        gas_perc.append(float(GasPrice) - (i ** 0.5) * ((int(GasSD) / 100) * float(GasPrice)))
     oil_perc[0] = float(oil_perc[0])
     gas_perc[0] = float(gas_perc[0])
-    print("Oil Ouput: " + str(oil_perc))
-    print("Gas Ouput: " + str(gas_perc))
+    print("Oil Output: " + str(oil_perc))
+    print("Gas Output: " + str(gas_perc))
 
     bar_plot(oil_perc, gas_perc)
 
@@ -120,7 +119,7 @@ def bar_plot(oil_perc, gas_perc):
     ax.set_title("Product Price Analysis, " + str(PercLine) + "% Probability of Exceeding the Green Line", fontsize=28)
 
     label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    gas_perc = [int(a) for a in gas_perc]
+    # gas_perc = [int(a) for a in gas_perc]
 
     ax.scatter(label, gas_perc, color="orange", marker=".", s=250, linewidth=3)
     ax.set_xlabel("Time (Months)", fontsize=25)
