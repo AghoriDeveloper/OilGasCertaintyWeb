@@ -10,9 +10,8 @@ def index(request):
 
     if request.method == 'POST':
         objabc = ObjABCForm(request.POST)
-        # print(objabc)
+        print(objabc)
         if objabc.is_valid():
-
             root = tk.Tk()
             root.title("Select Excel File")
             root.attributes("-topmost", True)
