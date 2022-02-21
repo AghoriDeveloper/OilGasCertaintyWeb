@@ -69,7 +69,8 @@ def create_table(oil_mid, gas_mid):
     std_dev_gas_price = (float(GasPrice) * int(GasSD)) / 100
 
     for i in range(1, len(oil_mid)):
-        oil_perc.append(float(OilPrice) + (std_dev_oil_price * z_val * (i ** 0.5)))
+        oil_perc.append(float(OilPrice) - (i ** 0.5) * ((int(OilSD) / 100) * float(OilPrice)))
+        # oil_perc.append(float(OilPrice) + (std_dev_oil_price * z_val * (i ** 0.5)))
         gas_perc.append(float(GasPrice) - (i ** 0.5) * ((int(GasSD) / 100) * float(GasPrice)))
     oil_perc[0] = float(oil_perc[0])
     gas_perc[0] = float(gas_perc[0])
