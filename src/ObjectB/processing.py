@@ -30,7 +30,10 @@ def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
 
 
 def getZ(perc):
-    val = (perc / 100) / 2
+    if perc >= 50:
+        val = (perc - 50) / 100
+    else:
+        val = (50 - perc) / 100
 
     df = pd.read_csv(os.path.join(settings.BASE_DIR, "ObjectB/static/main/preData/z_table.csv"))
     df = df.drop('z', 1)
@@ -40,11 +43,10 @@ def getZ(perc):
         for j in range(len(val_list[i])):
             if val_list[i][j] > val:
                 # print(val)
-                # print("Row:" , i, ", Column:", j)
+                # print("Row:", i, ", Column:", j)
 
-                z_val = (i / 10) + ((j - 1) / 100)
-                # print(z_val)
-                return -z_val
+                z_val = (i / 10) + (j / 100)
+                return z_val
 
 
 def value_verify():
@@ -65,17 +67,42 @@ def create_table(oil_mid, gas_mid):
 
     z_val = getZ(int(PercLine))
 
-    std_dev_oil_price = (int(OilPrice) * int(OilSD)) / 100
+    std_dev_oil_price = (int(OilPrice) * int(OilSD)) / 10
     std_dev_gas_price = (float(GasPrice) * int(GasSD)) / 100
 
+    oil_val = float(OilPrice) * std_dev_oil_price
+    gas_val = float(GasPrice) * std_dev_gas_price
+
     for i in range(1, len(oil_mid)):
-        oil_perc.append(float(OilPrice) - (i ** 0.5) * ((int(OilSD) / 100) * float(OilPrice)))
-        # oil_perc.append(float(OilPrice) + (std_dev_oil_price * z_val * (i ** 0.5)))
-        gas_perc.append(float(GasPrice) - (i ** 0.5) * ((int(GasSD) / 100) * float(GasPrice)))
+        if int(PercLine) > 50:
+            if float(OilPrice) - ((i ** 0.5) * z_val * oil_val) > 0:
+                oil_perc.append(float(OilPrice) - ((i ** 0.5) * z_val * oil_val))
+            else:
+                oil_perc.append(0)
+            if float(GasPrice) - ((i ** 0.5) * z_val * gas_val) > 0:
+                gas_perc.append(float(GasPrice) - ((i ** 0.5) * z_val * gas_val))
+            else:
+                gas_perc.append(0)
+        elif int(PercLine) < 50:
+            if float(OilPrice) + ((i ** 0.5) * z_val * oil_val) > 0:
+                oil_perc.append(float(OilPrice) + ((i ** 0.5) * z_val * oil_val))
+            else:
+                oil_perc.append(0)
+            if float(GasPrice) + ((i ** 0.5) * z_val * gas_val) > 0:
+                gas_perc.append(float(GasPrice) + ((i ** 0.5) * z_val * gas_val))
+            else:
+                gas_perc.append(0)
+        else:
+            if float(OilPrice) > 0:
+                oil_perc.append(float(OilPrice))
+            else:
+                oil_perc.append(0)
+            if float(GasPrice) > 0:
+                gas_perc.append(float(GasPrice))
+            else:
+                gas_perc.append(0)
     oil_perc[0] = float(oil_perc[0])
     gas_perc[0] = float(gas_perc[0])
-    print("Oil Output: " + str(oil_perc))
-    print("Gas Output: " + str(gas_perc))
 
     bar_plot(oil_perc, gas_perc)
 
