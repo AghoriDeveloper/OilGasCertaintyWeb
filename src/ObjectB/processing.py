@@ -67,13 +67,13 @@ def create_table(oil_mid, gas_mid):
 
     z_val = getZ(int(PercLine))
 
-    std_dev_oil_price = (int(OilPrice) * int(OilSD)) / 10
+    std_dev_oil_price = (int(OilPrice) * int(OilSD)) / 100
     std_dev_gas_price = (float(GasPrice) * int(GasSD)) / 100
 
-    oil_val = float(OilPrice) * std_dev_oil_price
-    gas_val = float(GasPrice) * std_dev_gas_price
+    oil_val = std_dev_oil_price
+    gas_val = std_dev_gas_price
 
-    for i in range(1, len(oil_mid)):
+    for i in range(1, len(oil_mid)+1):
         if int(PercLine) > 50:
             if float(OilPrice) - ((i ** 0.5) * z_val * oil_val) > 0:
                 oil_perc.append(float(OilPrice) - ((i ** 0.5) * z_val * oil_val))
@@ -114,7 +114,7 @@ def bar_plot(oil_perc, gas_perc):
     fig, ax = plt.subplots(1, figsize=(16, 16))
     ax.set_title("Product Price Analysis, " + str(PercLine) + "% Probability of Exceeding the Green Line", fontsize=28)
 
-    label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    label = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     oil_perc = [int(a) for a in oil_perc]
 
     ax.scatter(label, oil_perc, color="orange", marker=".", s=250, linewidth=3)
@@ -146,7 +146,7 @@ def bar_plot(oil_perc, gas_perc):
     fig, ax = plt.subplots(1, figsize=(16, 16))
     ax.set_title("Product Price Analysis, " + str(PercLine) + "% Probability of Exceeding the Green Line", fontsize=28)
 
-    label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    label = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     # gas_perc = [int(a) for a in gas_perc]
 
     ax.scatter(label, gas_perc, color="orange", marker=".", s=250, linewidth=3)
