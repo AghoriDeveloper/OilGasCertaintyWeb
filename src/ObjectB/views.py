@@ -11,9 +11,9 @@ def index(request):
         if objb.is_valid():
             print(objb)
 
-            chartoil, chartgas = setObjecBValues(objb['oilPrice'].value(), objb['oilSD'].value(), objb['gasPrice'].value(), objb['gasSD'].value(), objb['percLine'].value())
+            chartoil, chartgas, chartoillist, chartgaslist = setObjecBValues(objb['oilPrice'].value(), objb['oilSD'].value(), objb['gasPrice'].value(), objb['gasSD'].value(), objb['percLine'].value())
             objb.save()
 
-            return render(request, "ObjectB/chart.html", {'chartoil': chartoil, 'chartgas': chartgas})
+            return render(request, "ObjectB/chart.html", {'chartoil': chartoil, 'chartgas': chartgas, 'chartoillist': chartoillist, 'chartgaslist': chartgaslist})
 
     return render(request, "ObjectB/index.html", {'form': objb})

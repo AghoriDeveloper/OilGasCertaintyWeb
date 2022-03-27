@@ -2,16 +2,174 @@
 
 {% block content %}
 
-    <div style="width: 60%; margin-left: auto; margin-right: auto;">
-        {% if chartoil %}
-            <img src="data:image/png;base64, {{chartoil|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
-        {% endif %}
+    <style>
+        #oilpricetable, #gaspricetable {
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 75px;
+        }
+        
+        #oilpricetable td, #oilpricetable th, #gaspricetable td, #gaspricetable th {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: center;
+        }
+        
+        #oilpricetable tr:nth-child(even), #gaspricetable tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #oilpricetable tr:hover, #gaspricetable tr:hover {background-color: #ddd;}
+        
+        #oilpricetable th, #gaspricetable th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: center;
+          background-color: #04AA6D;
+          color: white;
+        }
+    </style>
+
+    <div style="display: flex; ">
+        <div style="flex: 0.6; margin-left: 10%;">
+            {% if chartoil %}
+                <img src="data:image/png;base64, {{chartoil|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
+            {% endif %}
+        </div>
+
+        <div style="flex: 0.4; margin-right: 10%;">
+            {% if chartoillist %}
+                <table id="oilpricetable">
+                    <tr>
+                        <th>Month</th>
+                        <th>Oil Price ($)</th>
+                    </tr>
+
+                    <tr>
+                        <td>0</td>
+                        <td>$ {{chartoillist.0}}</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>$ {{chartoillist.1}}</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>$ {{chartoillist.2}}</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$ {{chartoillist.3}}</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$ {{chartoillist.4}}</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>$ {{chartoillist.5}}</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>$ {{chartoillist.6}}</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>$ {{chartoillist.7}}</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>$ {{chartoillist.8}}</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>$ {{chartoillist.9}}</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>$ {{chartoillist.10}}</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>$ {{chartoillist.11}}</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>$ {{chartoillist.12}}</td>
+                    </tr>
+                </table>
+            {% endif %}
+        </div>
     </div>
 
-    <div style="padding-top: 1%; width: 60%; margin-left: auto; margin-right: auto;">
-        {% if chartgas %}
-            <img src="data:image/png;base64, {{chartgas|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
-        {% endif %}
+    <div style="display: flex; ">
+        <div style="flex: 0.6; margin-left: 10%;">
+            {% if chartgas %}
+                <img src="data:image/png;base64, {{chartgas|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
+            {% endif %}
+        </div>
+
+        <div style="flex: 0.4; margin-right: 10%;">
+            {% if chartgaslist %}
+                <table id="gaspricetable">
+                    <tr>
+                        <th>Month</th>
+                        <th>Gas Price ($)</th>
+                    </tr>
+
+                    <tr>
+                        <td>0</td>
+                        <td>$ {{chartgaslist.0}}</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>$ {{chartgaslist.1}}</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>$ {{chartgaslist.2}}</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$ {{chartgaslist.3}}</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$ {{chartgaslist.4}}</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>$ {{chartgaslist.5}}</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>$ {{chartgaslist.6}}</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>$ {{chartgaslist.7}}</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>$ {{chartgaslist.8}}</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>$ {{chartgaslist.9}}</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>$ {{chartgaslist.10}}</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>$ {{chartgaslist.11}}</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>$ {{chartgaslist.12}}</td>
+                    </tr>
+                </table>
+            {% endif %}
+        </div>
     </div>
 
 {% endblock content %}

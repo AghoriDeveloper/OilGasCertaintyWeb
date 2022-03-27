@@ -14,6 +14,7 @@ matplotlib.use('Agg')
 
 OilPrice, OilSD, GasPrice, GasSD, PercLine = 0, 0, 0, 0, 0
 ChartOil, ChartGas = -1, -1
+ChartOilList, ChartGasList = [], []
 
 
 def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
@@ -26,7 +27,7 @@ def setObjecBValues(oilPrice, oilSD, gasPrice, gasSD, percLine):
 
     value_verify()
 
-    return ChartOil, ChartGas
+    return ChartOil, ChartGas, ChartOilList, ChartGasList
 
 
 def getZ(perc):
@@ -108,14 +109,19 @@ def create_table(oil_mid, gas_mid):
 
 
 def bar_plot(oil_perc, gas_perc):
-    global ChartOil, ChartGas
+    global ChartOil, ChartGas, ChartOilList, ChartGasList
+
+    ChartOilList = oil_perc
+    ChartOilList = ['%.3f' % elem for elem in ChartOilList]
+    ChartGasList = gas_perc
+    ChartGasList = ['%.3f' % elem for elem in ChartGasList]
 
     # -------------------- Oil Plot --------------------
     fig, ax = plt.subplots(1, figsize=(16, 16))
     ax.set_title("Product Price Analysis, " + str(PercLine) + "% Probability of Exceeding the Green Line", fontsize=28)
 
     label = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    oil_perc = [int(a) for a in oil_perc]
+    # oil_perc = [int(a) for a in oil_perc]
 
     ax.scatter(label, oil_perc, color="orange", marker=".", s=250, linewidth=3)
     ax.set_xlabel("Time (Months)", fontsize=25)
