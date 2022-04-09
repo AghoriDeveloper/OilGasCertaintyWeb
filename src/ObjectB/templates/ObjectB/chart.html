@@ -28,6 +28,13 @@
         }
     </style>
 
+    <div style="text-align: center; margin-top: 20px">
+        <form action="{% url 'downloadexcel' %}" method="post">
+            {% csrf_token %}
+             <button type="submit" name="mybtn2" value="download_excel">Download Excel</button>
+         </form>
+    </div>
+
     <div style="display: flex; ">
         <div style="flex: 0.6; margin-left: 10%;">
             {% if chartoil %}
