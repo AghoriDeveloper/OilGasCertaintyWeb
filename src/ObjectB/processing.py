@@ -139,6 +139,7 @@ def bar_plot(oil_perc, gas_perc):
 
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
+    plt.savefig('Graph/ChartOil.png')
     buffer.seek(0)
     image_png = buffer.getvalue()
     graph = base64.b64encode(image_png)
@@ -171,6 +172,7 @@ def bar_plot(oil_perc, gas_perc):
 
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
+    plt.savefig('Graph/ChartGas.png')
     buffer.seek(0)
     image_png = buffer.getvalue()
     graph = base64.b64encode(image_png)
