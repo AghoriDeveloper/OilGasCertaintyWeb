@@ -10,7 +10,7 @@
             </div>
 
             <div>
-                <form method="POST" class="post-form">
+                <form method="POST" class="post-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_prodType" class="col-sm-3 control-label" style="font-weight: bold;">Oil or Gas</label>
@@ -40,6 +40,14 @@
                             </select>
                         </div>
                         <div class="col-sm-7"></div>
+                    </div>
+
+                    <div class="form-group" style="padding-top: 2%;">
+                        <label for="id_excelInput" class="col-sm-3 control-label" style="font-weight: bold;">Excel Input</label>
+                        <div class="col-sm-6" style="padding-top: 1%;">
+                            <input type="file" name="excelInput" id="id_excelInput" class="form-control" min="5" max="95" class="form-input-number" />
+                        </div>
+                        <div class="col-sm-3"></div>
                     </div>
 
                     <input type="submit" value="Submit" class="btn btn-primary col-sm-offset-3" style="margin-top: 2%; padding: 1% 5% 1% 5%;" />
