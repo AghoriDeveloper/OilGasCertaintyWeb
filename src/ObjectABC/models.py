@@ -21,6 +21,8 @@ class ObjABCModel(models.Model):
     oilProdCost = models.FloatField()
     gasProdCost = models.FloatField()
 
+    outputFileInput = models.FileField(upload_to='media', default='media/expense_declinedcurve_input.xlsx')
+    hedgedFileInput = models.FileField(upload_to='media', default='media/expense_hedged_input.xlsx')
 
     def __str__(self):
         return self.oilPrice + ' ' + self.gasPrice
