@@ -1,6 +1,9 @@
+import io
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from django.http import HttpResponse
 from scipy.optimize import curve_fit
 import math
 import xlsxwriter
@@ -12,13 +15,14 @@ from io import BytesIO
 
 Product, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile = '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''
 Chart = -1
+Response = -1
 col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = [], [], [], [], [], [], [], [], [], []
 col11, col12, col13, col14, col15, col16, col17, col18, col19, col20 = [], [], [], [], [], [], [], [], [], []
 col21, col22, col23, col24, col25 = [], [], [], [], []
 percentile = 60.0
 
 def setObjecABCValues(product, scf_bo, bc_mmscfg, oilPrice, oilSD, gasPrice, gasSD, oilPerc, gasPerc, royalty, priceUC, fixedCost, indProdCost, oilProdCost, gasProdCost, outputExcelFile, hedgedExcelFile):
-    global Product, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile
+    global Response, Product, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile
     Product = product
     Scf_bo = scf_bo
     Bc_mmscfg = bc_mmscfg
@@ -39,7 +43,7 @@ def setObjecABCValues(product, scf_bo, bc_mmscfg, oilPrice, oilSD, gasPrice, gas
     
     getExcel()
 
-    return Chart
+    return Response
 
 
 def getExcel():
@@ -229,7 +233,7 @@ def create_gas_table():
 
 
 def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_gas):
-    global col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, \
+    global Response, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, \
         col11, col12, col13, col14, col15, col16, col17, col18, col19, \
         col20, col21, col22, col23, col24, col25, FixedCost, InProdCost, Scf_bo, Royalty, OilProdCost, GasProdCost
 
@@ -241,8 +245,10 @@ def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_g
     col9 = col9.values.tolist()
     col10 = col10.values.tolist()
 
-    workbook = xlsxwriter.Workbook(os.path.expanduser("~") + "/Downloads/" + 'Output.xlsx')
-    worksheet = workbook.add_worksheet("Sheet")
+    output = io.BytesIO()
+
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet("Expense")
 
     cell_format_red = workbook.add_format()
     cell_format_red.set_font_color('#FF0000')
@@ -353,6 +359,15 @@ def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_g
         worksheet.write(i+1, 25, col25[i])
 
     workbook.close()
+
+    workbook.close()
+
+    output.seek(0)
+    response = HttpResponse(output.read(),
+                            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=Expense_Output.xlsx"
+    output.close()
+    Response = response
 
 
 def percentageLine(T, Q_oil, Q_gas, Q_Pred_oil, Q_Pred_gas):
