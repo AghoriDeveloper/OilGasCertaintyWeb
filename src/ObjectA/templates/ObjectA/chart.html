@@ -8,6 +8,13 @@
         {% endif %}
     </div>
 
+    <div style="text-align: center; margin-top: 20px">
+        <form action="{% url 'downloadexcelA' %}" method="post">
+            {% csrf_token %}
+             <button type="submit" name="mybtn2" value="download_excel">Download Excel</button>
+         </form>
+    </div>
+
     <div style="width: 60%; margin-left: auto; margin-right: auto;">
         {% if chart %}
             <img src="data:image/png;base64, {{chart|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />

@@ -16,9 +16,10 @@ from io import BytesIO
 ChartThreshold = 0
 ProdType, Threshold, CurveType, ExcelFile = '', 0, '', ''
 Chart = -1
+Excel_input = []
 
 def setObjecAValues(prodType, threshold, curveType, excelFile):
-    global ProdType, Threshold, CurveType, ExcelFile, Chart
+    global ProdType, Threshold, CurveType, ExcelFile, Chart, Excel_input
     ProdType = prodType
     Threshold = threshold
     CurveType = curveType
@@ -26,7 +27,7 @@ def setObjecAValues(prodType, threshold, curveType, excelFile):
     
     getExcel()
 
-    return Chart, ChartThreshold
+    return Chart, ChartThreshold, Excel_input
 
 def getExcel():
     global df, ProdType, ExcelFile
@@ -209,7 +210,7 @@ def create_excel(T_ext, Q_Pred, pred):
 
 
 def percentageLine(T, Q, ax, Q_Pred):
-    global CurveType, Chart
+    global CurveType, Chart, Excel_input
 
     if CurveType == "hyperbolic":
         hyp_decline = decline_curve("hyperbolic", Q[0])
@@ -260,9 +261,11 @@ def percentageLine(T, Q, ax, Q_Pred):
     buffer.close()
 
     if CurveType == "hyperbolic":
-        create_excel(T_ext, Q_Pred, pred_hyp)
+        Excel_input = [T_ext, Q_Pred, pred_hyp, Threshold]
+        # create_excel(T_ext, Q_Pred, pred_hyp)
     elif CurveType == "exponential":
-        create_excel(T_ext, Q_Pred, pred_exp)
+        Excel_input = [T_ext, Q_Pred, pred_exp, Threshold]
+        # create_excel(T_ext, Q_Pred, pred_exp)
 
     Chart = graph
 
