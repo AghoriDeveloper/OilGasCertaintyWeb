@@ -6,7 +6,6 @@ matplotlib.use('Agg')
 from scipy.optimize import curve_fit
 import math
 import xlsxwriter
-from django.contrib.staticfiles.storage import staticfiles_storage
 import os
 from django.conf import settings
 import base64
@@ -111,7 +110,7 @@ def plotCurve(T, Q):
         min_val = min([min(curve) for curve in [pred_hyp]])
         max_val = max([max(curve) for curve in [pred_hyp]])
 
-        ax.plot(T_ext, pred_hyp, color="green", linewidth=5, alpha=0.5, label="Hyperbolic Best Fit (" + str(Threshold) + "%)")
+        ax.plot(T_ext, pred_hyp, color="green", linewidth=5, alpha=0.5, label="Hyperbolic Best Fit (50%)")
     elif CurveType == "exponential":
         exp_decline = decline_curve("exponential", Q[0])
         popt_exp, pcov_exp = curve_fit(exp_decline, T, Q, method="trf")
@@ -126,7 +125,7 @@ def plotCurve(T, Q):
         min_val = min([min(curve) for curve in [pred_exp]])
         max_val = max([max(curve) for curve in [pred_exp]])
 
-        ax.plot(T_ext, pred_exp, color="green", linewidth=5, alpha=0.5, label="Exponential Best Fit (" + str(Threshold) + "%)")
+        ax.plot(T_ext, pred_exp, color="green", linewidth=5, alpha=0.5, label="Exponential Best Fit (50%)")
 
     ax.set_ylim(min_val - 20, max_val + 20)
     # ax.ticklabel_format(fontsize=25)

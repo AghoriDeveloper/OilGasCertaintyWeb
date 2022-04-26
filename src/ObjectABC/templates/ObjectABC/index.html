@@ -16,7 +16,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_product" class="col-sm-3 control-label" style="font-weight: bold;">Oil or Gas</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
-                            <select name="product" id="id_product" class="form-control" class="form-input-option" onchange="onSelectProd()">
+                            <select name="product" id="id_product" class="form-control" class="form-input-option" onchange="onSelectProd()" required>
                                 <option value="oil">Oil</option>
                                 <option value="gas">Gas</option>
                             </select>
@@ -28,7 +28,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_scf_bo" class="col-sm-3 control-label" style="font-weight: bold;">SCF/BO</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="scf_bo" id="id_scf_bo" class="form-control" value="560" class="form-input-number" />
+                                <input type="number" name="scf_bo" id="id_scf_bo" class="form-control" placeholder="560" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -36,7 +36,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_bc_mmscfg" class="col-sm-3 control-label" style="font-weight: bold;">BC/MMSCFG</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="bc_mmscfg" id="id_bc_mmscfg" class="form-control" value="56" class="form-input-number" />
+                                <input type="number" name="bc_mmscfg" id="id_bc_mmscfg" class="form-control" placeholder="56" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilPrice" class="col-sm-3 control-label" style="font-weight: bold;">Oil Price ($/bbl)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="oilPrice" id="id_oilPrice" class="form-control" value="67" class="form-input-number" />
+                                <input type="number" name="oilPrice" id="id_oilPrice" class="form-control" placeholder="67" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -58,7 +58,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilSD" class="col-sm-3 control-label" style="font-weight: bold;">Monthly Standard Deviation of Oil Price (%)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="oilSD" id="id_oilSD" class="form-control" value="9" min="0" max="100" class="form-input-number" />
+                                <input type="number" name="oilSD" id="id_oilSD" class="form-control" placeholder="9" min="0" max="100" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -68,7 +68,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_gasPrice" class="col-sm-3 control-label" style="font-weight: bold;">Gas Price ($/MSCFG)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="gasPrice" id="id_gasPrice" class="form-control" value="3.67" class="form-input-number" />
+                                <input type="number" name="gasPrice" id="id_gasPrice" class="form-control" placeholder="3.67" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -76,7 +76,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_gasSD" class="col-sm-3 control-label" style="font-weight: bold;">Monthly Standard Deviation of Gas Price (%)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="gasSD" id="id_gasSD" class="form-control" value="13" min="0" max="100" class="form-input-number" />
+                                <input type="number" name="gasSD" id="id_gasSD" class="form-control" placeholder="13" min="0" max="100" step=".01" class="form-input-number" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -86,7 +86,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilPerc" class="col-sm-3 control-label" style="font-weight: bold;">Oil Price Probability Percentile (%)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="oilPerc" id="id_oilPerc" class="form-control" value="80" min="0" max="100" class="form-input-number" />
+                                <input type="number" name="oilPerc" id="id_oilPerc" class="form-control" placeholder="80" min="0" max="100" class="form-input-number" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_gasPerc" class="col-sm-3 control-label" style="font-weight: bold;">Gas Price Probability Percentile (%)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="gasPerc" id="id_gasPerc" class="form-control" value="65" min="0" max="100" class="form-input-number" />
+                                <input type="number" name="gasPerc" id="id_gasPerc" class="form-control" placeholder="65" min="0" max="100" class="form-input-number" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -104,7 +104,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_royalty" class="col-sm-3 control-label" style="font-weight: bold;">Royalty</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="royalty" id="id_royalty" class="form-control" value="0.1865" class="form-input-number" />
+                                <input type="number" name="royalty" id="id_royalty" class="form-control" placeholder="0.1865" step=".0001" class="form-input-number" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -112,7 +112,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_priceUC" class="col-sm-3 control-label" style="font-weight: bold;">Increase Price Uncertainty with Time</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <select name="priceUC" id="id_priceUC" class="form-control" class="form-input-option">
+                                <select name="priceUC" id="id_priceUC" class="form-control" class="form-input-option" required>
                                     <option value="on">On</option>
                                     <option value="off">Off</option>
                                 </select>
@@ -129,7 +129,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_fixedCost" class="col-sm-3 control-label" style="font-weight: bold;">Fixed Cost ($/Month)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="fixedCost" id="id_fixedCost" class="form-control" value="11000" class="form-input-number" />
+                                <input type="number" name="fixedCost" id="id_fixedCost" class="form-control" placeholder="11000" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -137,7 +137,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_indProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost Independent of Production ($/Month)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="indProdCost" id="id_indProdCost" class="form-control" value="5000" class="form-input-number" />
+                                <input type="number" name="indProdCost" id="id_indProdCost" class="form-control" placeholder="5000" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -147,7 +147,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost based on Oil Production ($/bbl)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="oilProdCost" id="id_oilProdCost" class="form-control" value="9" class="form-input-number" />
+                                <input type="number" name="oilProdCost" id="id_oilProdCost" class="form-control" placeholder="9" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -155,7 +155,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_gasProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost based on Gas Production ($/MSCFG)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="gasProdCost" id="id_gasProdCost" class="form-control" value="0.55" class="form-input-number" />
+                                <input type="number" name="gasProdCost" id="id_gasProdCost" class="form-control" placeholder="0.55" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -165,7 +165,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Previous 36 Months</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="file" name="outputFileInput" id="id_outputFileInput" class="form-control">
+                                <input type="file" name="outputFileInput" id="id_outputFileInput" class="form-control" required>
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -173,7 +173,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Hedged Values</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="file" name="hedgedFileInput" id="id_hedgedExcelFile" class="form-control" placeholder="Upload file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <input type="file" name="hedgedFileInput" id="id_hedgedExcelFile" class="form-control" placeholder="Upload file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
                             </div>
                             <div class="col-sm-3"></div>
                         </div>

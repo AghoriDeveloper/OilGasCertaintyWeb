@@ -15,7 +15,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_prodType" class="col-sm-3 control-label" style="font-weight: bold;">Oil or Gas</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
-                            <select name="prodType" id="id_prodType" class="form-control" class="form-input-option">
+                            <select name="prodType" id="id_prodType" class="form-control" class="form-input-option" required>
                                 <option value="oil">Oil</option>
                                 <option value="gas">Gas</option>
                             </select>
@@ -26,7 +26,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_threshold" class="col-sm-3 control-label" style="font-weight: bold;">Probability of Exceeding (%)</label>
                         <div class="col-sm-6" style="padding-top: 1%;">
-                            <input type="number" name="threshold" id="id_threshold" class="form-control" min="5" max="95" class="form-input-number" />
+                            <input type="number" name="threshold" id="id_threshold" class="form-control" min="5" max="95" class="form-input-number" required />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_curveType" class="col-sm-3 control-label" style="font-weight: bold;">Hyperbolic or Exponential</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
-                            <select name="curveType" id="id_curveType" class="form-control" class="form-input-option">
+                            <select name="curveType" id="id_curveType" class="form-control" class="form-input-option" required >
                                 <option value="hyperbolic">Hyperbolic</option>
                                 <option value="exponential">Exponential</option>
                             </select>
@@ -45,7 +45,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_excelInput" class="col-sm-3 control-label" style="font-weight: bold;">Excel Input</label>
                         <div class="col-sm-6" style="padding-top: 1%;">
-                            <input type="file" name="excelInput" id="id_excelInput" class="form-control" class="form-input-number" />
+                            <input type="file" name="excelInput" id="id_excelInput" class="form-control" class="form-input-number" required />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
