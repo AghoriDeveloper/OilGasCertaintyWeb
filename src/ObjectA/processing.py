@@ -32,13 +32,11 @@ def getExcel():
     global df, ProdType, ExcelFile
 
     df = pd.read_excel(ExcelFile)
-    # print(ProdType)
 
     df = df.dropna(axis=1)
     if "Unnamed" in df.columns[0] and "Unnamed" in df.columns[1]:
         df.columns = df.iloc[0]
         df = df[1:]
-    # print(df)
 
     if ProdType == "oil":
         x_og = df.iloc[:, [0]]
@@ -82,7 +80,6 @@ def plotCurve(T, Q):
     global ProdType, CurveType, ChartThreshold
     fig, ax = plt.subplots(1, figsize=(16, 16))
     ChartThreshold = Threshold
-    # ax.set_title("Decline Curve Analysis, " + str(Threshold) + "% Probability of Being Above the Red Line", fontsize=18)
     ax.set_xlim(min(T) - 5, max(T) + 15)
 
     ax.scatter(T, Q, color="black", marker=".", s=250, linewidth=3)
@@ -97,14 +94,12 @@ def plotCurve(T, Q):
         hyp_decline = decline_curve("hyperbolic", Q[0])
         popt_hyp, pcov_hyp = curve_fit(hyp_decline, T, Q, method="trf")
         print(popt_hyp, pcov_hyp)
-        # print("L2 Norm of hyperbolic decline decline: ", L2_norm(hyp_decline(T, popt_hyp[0], popt_hyp[1]), Q))
 
         T_list = T.tolist()
         for i in range(len(T_list), len(T_list) + 12):
             T_list.append(T_list[i - 1] + 1)
         T_ext = np.array(T_list, dtype=np.float64)
         pred_hyp = hyp_decline(T_ext, popt_hyp[0], popt_hyp[1])
-        # print(Q)
         print(pred_hyp)
 
         min_val = min([min(curve) for curve in [pred_hyp]])
@@ -114,7 +109,6 @@ def plotCurve(T, Q):
     elif CurveType == "exponential":
         exp_decline = decline_curve("exponential", Q[0])
         popt_exp, pcov_exp = curve_fit(exp_decline, T, Q, method="trf")
-        # print("L2 Norm of exponential decline: ", L2_norm(exp_decline(T, popt_exp[0]), Q))
 
         T_list = T.tolist()
         for i in range(len(T_list), len(T_list) + 12):
@@ -128,9 +122,7 @@ def plotCurve(T, Q):
         ax.plot(T_ext, pred_exp, color="green", linewidth=5, alpha=0.5, label="Exponential Best Fit (50%)")
 
     ax.set_ylim(min_val - 20, max_val + 20)
-    # ax.ticklabel_format(fontsize=25)
     ax.legend(fontsize=15)
-    # plt.show()
 
     if CurveType == "hyperbolic":
         percentageList(T, Q, T_ext, pred_hyp, ax)
@@ -139,7 +131,7 @@ def plotCurve(T, Q):
 
 
 def getZ(perc):
-    val = int(perc) / 100
+    val = float(perc) / 100
 
     df = pd.read_csv(os.path.join(settings.BASE_DIR, "ObjectA/static/main/preData/new_z_table.csv"))
     df = df.drop('z', 1)
@@ -151,14 +143,11 @@ def getZ(perc):
     for i in range(len(val_list)):
         for j in range(len(val_list[i])):
             if val_list[i][j] > val:
-                # print(val)
-                # print("Row:", i, ", Column:", j)
-
                 if 0 < i <= 16:
                     z_val = row[i] - ((j - 1) / 100)
                 else:
                     z_val = row[i] + ((j - 1) / 100)
-                # print(z_val)
+
                 return z_val
 
 
@@ -175,13 +164,8 @@ def percentageList(T, Q, T_ext, Q_pred, ax):
         denominator += (i - mean) ** 2
 
     std_dev = math.sqrt(denominator / len(Q))
-
     perc = Threshold
-    # print(perc)
-
     z_val = getZ(perc)
-
-    # err_margin = (z_val * (std_dev / math.sqrt(len(Q))))
 
     lower_bound = []
     for i in Q:
@@ -214,15 +198,12 @@ def percentageLine(T, Q, ax, Q_Pred):
     if CurveType == "hyperbolic":
         hyp_decline = decline_curve("hyperbolic", Q[0])
         popt_hyp, pcov_hyp = curve_fit(hyp_decline, T, Q, method="trf")
-        # print("L2 Norm of hyperbolic decline decline: ", L2_norm(hyp_decline(T, popt_hyp[0], popt_hyp[1]), Q))
 
         T_list = T.tolist()
         for i in range(len(T_list), len(T_list) + 12):
             T_list.append(T_list[i - 1] + 1)
         T_ext = np.array(T_list, dtype=np.float64)
         pred_hyp = hyp_decline(T_ext, popt_hyp[0], popt_hyp[1])
-        # print(Q)
-        # print(pred_hyp)
 
         min_val = min([min(curve) for curve in [pred_hyp]])
         max_val = max([max(curve) for curve in [pred_hyp]])
@@ -231,7 +212,6 @@ def percentageLine(T, Q, ax, Q_Pred):
     elif CurveType == "exponential":
         exp_decline = decline_curve("exponential", Q[0])
         popt_exp, pcov_exp = curve_fit(exp_decline, T, Q, method="trf")
-        # print("L2 Norm of exponential decline: ", L2_norm(exp_decline(T, popt_exp[0]), Q))
 
         T_list = T.tolist()
         for i in range(len(T_list), len(T_list) + 12):
@@ -245,10 +225,8 @@ def percentageLine(T, Q, ax, Q_Pred):
         ax.plot(T_ext, pred_exp, color="red", linewidth=5, alpha=0.5, label="Percentile Fit at " + str(Threshold) + "% Percentile")
 
     ax.set_ylim(min_val - 20, max_val + 20)
-    # ax.ticklabel_format(fontsize=25)
     plt.legend(loc='upper right')
     ax.legend(fontsize=15)
-    # plt.show()
     plt.tight_layout()
 
     buffer = BytesIO()
@@ -261,12 +239,7 @@ def percentageLine(T, Q, ax, Q_Pred):
 
     if CurveType == "hyperbolic":
         Excel_input = [T_ext, Q_Pred, pred_hyp, Threshold]
-        # create_excel(T_ext, Q_Pred, pred_hyp)
     elif CurveType == "exponential":
         Excel_input = [T_ext, Q_Pred, pred_exp, Threshold]
-        # create_excel(T_ext, Q_Pred, pred_exp)
 
     Chart = graph
-
-
-

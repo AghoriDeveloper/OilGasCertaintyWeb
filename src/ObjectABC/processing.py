@@ -1,17 +1,12 @@
 import io
-
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from django.http import HttpResponse
 from scipy.optimize import curve_fit
 import math
 import xlsxwriter
-from django.contrib.staticfiles.storage import staticfiles_storage
 import os
 from django.conf import settings
-import base64
-from io import BytesIO
 
 Product, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile = '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''
 Chart = -1
@@ -60,11 +55,6 @@ def getExcel():
     col10 = df_hedged.iloc[:, [3]]
 
     percentile = df.iloc[0][2] * 100
-    # print(df.iloc[0][2] * 100)
-
-    # df = df.dropna(axis=1)
-    # if "Unnamed" in df.columns[0] and "Unnamed" in df.columns[1]:
-    #     df.columns = df.iloc[0]
     df = df[4:]
     print(df)
 
@@ -106,7 +96,6 @@ def plotCurve(T, Q_oil, Q_gas):
     hyp_decline_gas = decline_curve("hyperbolic", Q_gas[0])
     popt_hyp_oil, pcov_hyp_oil = curve_fit(hyp_decline_oil, T, Q_oil, method="trf")
     popt_hyp_gas, pcov_hyp_gas = curve_fit(hyp_decline_gas, T, Q_gas, method="trf")
-    # print("L2 Norm of hyperbolic decline decline: ", L2_norm(hyp_decline(T, popt_hyp[0], popt_hyp[1]), Q))
 
     T_list = T.tolist()
     for i in range(len(T_list), len(T_list) + 12):
@@ -114,13 +103,6 @@ def plotCurve(T, Q_oil, Q_gas):
     T_ext = np.array(T_list, dtype=np.float64)
     pred_hyp_oil = hyp_decline_oil(T_ext, popt_hyp_oil[0], popt_hyp_oil[1])
     pred_hyp_gas = hyp_decline_gas(T_ext, popt_hyp_gas[0], popt_hyp_gas[1])
-    # print(Q)
-    # print(pred_hyp)
-
-    min_val_oil = min([min(curve) for curve in [pred_hyp_oil]])
-    min_val_gas = min([min(curve) for curve in [pred_hyp_gas]])
-    max_val_oil = max([max(curve) for curve in [pred_hyp_oil]])
-    max_val_gas = max([max(curve) for curve in [pred_hyp_gas]])
 
     percentageList(T, Q_oil, Q_gas, T_ext, pred_hyp_oil, pred_hyp_gas)
 
@@ -138,14 +120,11 @@ def getZ(perc):
     for i in range(len(val_list)):
         for j in range(len(val_list[i])):
             if val_list[i][j] > val:
-                # print(val)
-                # print("Row:", i, ", Column:", j)
-
                 if 0 < i <= 16:
                     z_val = row[i] - ((j - 1) / 100)
                 else:
                     z_val = row[i] + ((j - 1) / 100)
-                # print(z_val)
+
                 return z_val
 
 
@@ -169,7 +148,6 @@ def percentageList(T, Q_oil, Q_gas, T_ext, Q_pred_oil, Q_pred_gas):
 
     std_dev_oil = math.sqrt(denominator_oil / len(Q_oil))
     std_dev_gas = math.sqrt(denominator_gas / len(Q_gas))
-    # perc = v1.get()
     perc = percentile
 
     z_val = getZ(perc)
@@ -192,11 +170,7 @@ def getZNorm(perc):
     for i in range(len(val_list)):
         for j in range(len(val_list[i])):
             if val_list[i][j] > val:
-                # print(val)
-                # print("Row:" , i, ", Column:", j)
-
                 z_val = (i / 10) + ((j - 1) / 100)
-                # print(z_val)
                 return -z_val
 
 
@@ -205,9 +179,9 @@ def create_table():
     oil_mid = [OilPrice] * 12
     oil_perc = [OilPrice]
 
-    z_val = getZNorm(int(percentile))
+    z_val = getZNorm(float(percentile))
 
-    std_dev_oil_price = (int(OilPrice) * int(OilSD)) / 100
+    std_dev_oil_price = (float(OilPrice) * float(OilSD)) / 100
 
     for i in range(1, len(oil_mid)):
         oil_perc.append(float(OilPrice) + (std_dev_oil_price * z_val * (i ** 0.5)))
@@ -221,7 +195,7 @@ def create_gas_table():
     gas_mid = [float(GasPrice)] * 12
     gas_perc = [GasPrice]
 
-    z_val = getZNorm(int(percentile))
+    z_val = getZNorm(float(percentile))
 
     std_dev_gas_price = (float(GasPrice) * float(GasSD)) / 100
 
@@ -303,7 +277,6 @@ def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_g
         col2[i] = (col1[i] * float(Scf_bo)) / 1000
         col3.append(30.42 * col1[i])
         col4.append(30.42 * col2[i])
-        # col15.append(30.42 * col2[i])
 
     for i in range(12):
         col5.append(col3[i] * (1 - float(Royalty)))
@@ -360,8 +333,6 @@ def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_g
 
     workbook.close()
 
-    workbook.close()
-
     output.seek(0)
     response = HttpResponse(output.read(),
                             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -382,8 +353,5 @@ def percentageLine(T, Q_oil, Q_gas, Q_Pred_oil, Q_Pred_gas):
     T_ext = np.array(T_list, dtype=np.float64)
     pred_hyp_oil = hyp_decline_oil(T_ext, popt_hyp_oil[0], popt_hyp_oil[1])
     pred_hyp_gas = hyp_decline_gas(T_ext, popt_hyp_gas[0], popt_hyp_gas[1])
-
-    # min_val = min([min(curve) for curve in [pred_hyp]])
-    # max_val = max([max(curve) for curve in [pred_hyp]])
 
     create_excel(T_ext, Q_Pred_oil, Q_Pred_gas, pred_hyp_oil, pred_hyp_gas)
