@@ -64,6 +64,11 @@
             padding-top: 5vh;
         }
 
+        .form-control {
+          width: 30%;
+          padding: 5px;
+        }
+
         .sub-div-1 {
             width: 60%;
             margin-left: auto;
@@ -95,16 +100,30 @@
         }
 
         @media only screen and (max-width: 650px) {
+            .main-div {
+                padding-top: 0;
+            }
+
+            .form-control {
+              width: 50%;
+              padding: 5px;
+            }
+
+            .col-sm-7, .col-sm-3 {
+              margin: 10px;
+            }
+
             .sub-div-1 {
                 width: 100%;
             }
 
             .page-title {
-                font-size: 4vw;
+                font-size: 5vw;
+                margin-bottom: 0;
             }
 
             .page-description {
-                font-size: 2vw;
+                font-size: 3vw;
                 font-weight: 400;
             }
         }

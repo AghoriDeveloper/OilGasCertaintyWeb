@@ -16,7 +16,7 @@
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_product" class="col-sm-3 control-label" style="font-weight: bold;">Oil or Gas</label>
                         <div class="col-sm-2" style="padding-top: 1%;">
-                            <select name="product" id="id_product" class="form-control" class="form-input-option" onchange="onSelectProd()" required>
+                            <select name="product" id="id_product" class="form-control-single" class="form-input-option" onchange="onSelectProd()" required>
                                 <option value="oil">Oil</option>
                                 <option value="gas">Gas</option>
                             </select>
@@ -24,7 +24,7 @@
                         <div class="col-sm-7"></div>
                     </div>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_scf_bo" class="col-sm-3 control-label" style="font-weight: bold;">SCF/BO</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -46,7 +46,7 @@
                 <div>
                     <p class="page-formTitle">Product Prices and Uncertainity Information</p>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilPrice" class="col-sm-3 control-label" style="font-weight: bold;">Oil Price ($/bbl)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_gasPrice" class="col-sm-3 control-label" style="font-weight: bold;">Gas Price ($/MSCFG)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilPerc" class="col-sm-3 control-label" style="font-weight: bold;">Oil Price Probability Percentile (%)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_royalty" class="col-sm-3 control-label" style="font-weight: bold;">Royalty</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -125,7 +125,7 @@
                 <div>
                     <p class="page-formTitle">Expense Information</p>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_fixedCost" class="col-sm-3 control-label" style="font-weight: bold;">Fixed Cost ($/Month)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -143,7 +143,7 @@
                         </div>
                     </div>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost based on Oil Production ($/bbl)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -161,7 +161,7 @@
                         </div>
                     </div>
 
-                    <div style="display: flex;">
+                    <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Previous 36 Months</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
@@ -181,7 +181,7 @@
                 </div>
 
                 <div>
-                    <input type="submit" value="Import Excel File for Historical Production" class="btn btn-primary col-sm-offset-3" style="margin-top: 4%; margin-bottom: 5%; padding: 1% 5% 1% 5%;"/>
+                    <input type="submit" value="Submit" class="btn btn-primary col-sm-offset-3" style="margin-top: 4%; margin-bottom: 5%; padding: 1% 5% 1% 5%;"/>
                 </div>
             </form>
         </div>
@@ -212,6 +212,20 @@
             height: 82vh;
             background-color: white;
             padding-top: 5vh;
+        }
+
+        .division-block {
+            display: flex;
+        }
+
+        .form-control-single {
+          width: 30%;
+          padding: 5px;
+        }
+
+        .form-control {
+          width: 50%;
+          padding: 5px;
         }
 
         .sub-div-1 {
@@ -252,17 +266,39 @@
         }
 
         @media only screen and (max-width: 650px) {
+            .main-div {
+                padding-top: 0;
+            }
+
+            .division-block {
+                display: block;
+            }
+
+            .form-control {
+              width: 50%;
+              padding: 5px;
+            }
+
+            .col-sm-7, .col-sm-3 {
+              margin: 10px;
+            }
+
             .sub-div-1 {
                 width: 100%;
             }
 
             .page-title {
-                font-size: 4vw;
+                font-size: 5vw;
+                margin-bottom: 0;
             }
 
             .page-description {
-                font-size: 2vw;
+                font-size: 3vw;
                 font-weight: 400;
+            }
+
+            .page-formTitle {
+                font-size: 3vw;
             }
         }
     </style>

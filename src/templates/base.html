@@ -1,6 +1,5 @@
 {% load static %}
 
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -157,8 +156,6 @@
           .container .navbar ul {
             -ms-flex-wrap: nowrap;
             flex-wrap: nowrap;
-            position: fixed;
-            left: 100%;
             -webkit-box-orient: vertical;
             -webkit-box-direction: normal;
             -ms-flex-direction: column;
@@ -167,6 +164,11 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+          }
+
+          .nav-lists {
+            position: fixed;
+            left: 100%;
             -webkit-transition: left .3s;
             -o-transition: left .3s;
             transition: left .3s;
@@ -216,7 +218,7 @@
                 <i></i>
             </div>
 
-            <ul id="nav-lists">
+            <ul id="nav-lists" class="nav-lists">
                 <li class="close"><span onclick="Hide()">×</span></li>
                 <li><a>About</a></li>
                 <li><a>Contact</a></li>
@@ -230,5 +232,17 @@
     {% block content %}
 
     {% endblock content %}
+
+    <script type="text/javascript">
+        function Show() {
+           var e = document.getElementById('nav-lists');
+           e.style.left = 0;
+        }
+
+        function Hide() {
+           var e = document.getElementById('nav-lists');
+           e.style.left = '100%';
+        }
+    </script>
 </body>
 </html>

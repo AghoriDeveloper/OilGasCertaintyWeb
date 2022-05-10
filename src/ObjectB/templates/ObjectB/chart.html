@@ -3,16 +3,28 @@
 {% block content %}
 
     <style>
+        .division-block {
+            display: flex;
+        }
+
+        .chart-block {
+            margin-left: 10%;
+        }
+
+        .table-block {
+            margin-right: 10%;
+        }
+
         #oilpricetable, #gaspricetable {
-          border-collapse: collapse;
-          width: 100%;
-          margin-top: 75px;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 75px;
         }
         
         #oilpricetable td, #oilpricetable th, #gaspricetable td, #gaspricetable th {
-          border: 1px solid #ddd;
-          padding: 8px;
-          text-align: center;
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
         }
         
         #oilpricetable tr:nth-child(even), #gaspricetable tr:nth-child(even){background-color: #f2f2f2;}
@@ -20,12 +32,37 @@
         #oilpricetable tr:hover, #gaspricetable tr:hover {background-color: #ddd;}
         
         #oilpricetable th, #gaspricetable th {
-          padding-top: 12px;
-          padding-bottom: 12px;
-          text-align: center;
-          background-color: #04AA6D;
-          color: white;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #04AA6D;
+            color: white;
         }
+
+         @media only screen and (max-width: 650px) {
+            .division-block {
+                display: block;
+            }
+
+            .chart-block {
+                margin-left: 0;
+            }
+
+            .table-block {
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #oilpricetable, #gaspricetable {
+                font-size: 3vw;
+                margin-top: 0;
+            }
+
+            .col-st {
+                margin-top: 50px;
+            }
+         }
     </style>
 
     <div style="text-align: center; margin-top: 20px">
@@ -35,14 +72,14 @@
          </form>
     </div>
 
-    <div style="display: flex; ">
-        <div style="flex: 0.6; margin-left: 10%;">
+    <div class="division-block">
+        <div class="chart-block" style="flex: 0.6;">
             {% if chartoil %}
                 <img src="data:image/png;base64, {{chartoil|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
             {% endif %}
         </div>
 
-        <div style="flex: 0.4; margin-right: 10%;">
+        <div class="table-block" style="flex: 0.4;">
             {% if chartoillist %}
                 <table id="oilpricetable">
                     <tr>
@@ -107,14 +144,14 @@
         </div>
     </div>
 
-    <div style="display: flex; ">
-        <div style="flex: 0.6; margin-left: 10%;">
+    <div class="division-block col-st">
+        <div class="chart-block" style="flex: 0.6;">
             {% if chartgas %}
                 <img src="data:image/png;base64, {{chartgas|safe}}" style="width: 100%; margin-left: auto; margin-right: auto;" />
             {% endif %}
         </div>
 
-        <div style="flex: 0.4; margin-right: 10%;">
+        <div class="table-block" style="flex: 0.4;">
             {% if chartgaslist %}
                 <table id="gaspricetable">
                     <tr>
