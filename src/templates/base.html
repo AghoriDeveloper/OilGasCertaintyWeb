@@ -20,7 +20,7 @@
         }
 
         .container {
-          background-color: #333333;
+          background-color: #aaa;
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex;
@@ -80,8 +80,8 @@
 
         .container .navbar ul li a {
           text-decoration: none;
-          color: #999999;
-          font-size: 12px;
+          font-size: 14px;
+          font-weight: 700;
           text-transform: uppercase;
           display: block;
           height: 60px;
@@ -90,9 +90,17 @@
           padding: 0 10px;
         }
 
+        .container .navbar ul li a.inactive-menu {
+            color: #0A406C;
+        }
+
+        .container .navbar ul li a.active-menu {
+            color: #EF6B1F;
+        }
+
         .container .navbar ul li a:hover {
-          color: #ffffff;
-          background-color: rgba(23, 23, 23, 0.9);
+          color: #EF6B1F;
+<!--          background-color: rgba(23, 23, 23, 0.9);-->
         }
 
         .container .navbar ul .close {
@@ -220,11 +228,11 @@
 
             <ul id="nav-lists" class="nav-lists">
                 <li class="close"><span onclick="Hide()">×</span></li>
-                <li><a>About</a></li>
-                <li><a>Contact</a></li>
-                <li><a href="obj-a/">Decline Curve</a></li>
-                <li><a href="obj-b/">Product Price</a></li>
-                <li><a href="obj-abc/">Decline Curve + Product Price + Expense</a></li>
+                <li><a class="inactive-menu">About</a></li>
+                <li><a class="inactive-menu">Contact</a></li>
+                <li><a href="obj-a/" class="inactive-menu">Decline Curve</a></li>
+                <li><a href="obj-b/" class="inactive-menu">Product Price</a></li>
+                <li><a href="obj-abc/" class="inactive-menu">Decline Curve + Product Price + Expense</a></li>
             </ul>
         </div>
     </div>

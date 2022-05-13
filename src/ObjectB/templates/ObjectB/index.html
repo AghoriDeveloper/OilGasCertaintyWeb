@@ -6,7 +6,7 @@
         <div class="sub-div-1">
             <div>
                 <p class="page-title">Product Price</p>
-                <p class="page-description">Give required details to get production values.</p>
+                <p class="page-description">Give required details to get output calculations and graphs.</p>
             </div>
 
             <div>
@@ -22,8 +22,9 @@
 
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_oilSD" class="col-sm-3 control-label" style="font-weight: bold;">Monthly Oil Standard Deviation</label>
+                        <p class="field-description">9% is the historical average</p>
                         <div class="col-sm-6" style="padding-top: 1%;">
-                            <input type="number" name="oilSD" id="id_oilSD" required class="form-control" placeholder="9" min="0" max="100" step=".01" class="form-input-number" />
+                            <input type="number" name="oilSD" id="id_oilSD" required class="form-control" value="9" min="1" max="99" step=".01" class="form-input-number" />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
@@ -38,16 +39,17 @@
 
                     <div class="form-group" style="padding-top: 2%;">
                         <label for="id_gasSD" class="col-sm-3 control-label" style="font-weight: bold;">Monthly Gas Standard Deviation</label>
+                        <p class="field-description">13% is the historical average</p>
                         <div class="col-sm-6" style="padding-top: 1%;">
-                            <input type="number" name="gasSD" id="id_gasSD" required class="form-control" placeholder="14" min="0" max="100" step=".01" class="form-input-number" />
+                            <input type="number" name="gasSD" id="id_gasSD" required class="form-control" value="13" min="1" max="99" step=".01" class="form-input-number" />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
 
                     <div class="form-group" style="padding-top: 2%;">
-                        <label for="id_percLine" class="col-sm-3 control-label" style="font-weight: bold;">Extra Percentile Line</label>
+                        <label for="id_percLine" class="col-sm-3 control-label" style="font-weight: bold;">Probability of Price Exceeding (%)</label>
                         <div class="col-sm-6" style="padding-top: 1%;">
-                            <input type="number" name="percLine" id="id_percLine" required class="form-control" placeholder="65" min="5" max="95" step=".01" class="form-input-number" />
+                            <input type="number" name="percLine" id="id_percLine" required class="form-control" min="1" max="99" step=".01" class="form-input-number" />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
@@ -92,6 +94,14 @@
             color: #525252;
         }
 
+        .field-description {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 1vw;
+            font-weight: 400;
+            color: #525252;
+        }
+
         .form-input-option {
             width: 50%;
             padding: 1%;
@@ -121,6 +131,11 @@
             }
 
             .page-description {
+                font-size: 3vw;
+                font-weight: 400;
+            }
+
+            .field-description {
                 font-size: 3vw;
                 font-weight: 400;
             }
