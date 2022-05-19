@@ -8,7 +8,7 @@ import xlsxwriter
 import os
 from django.conf import settings
 
-Product, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile = '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''
+Product, Prod_perc, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile = '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''
 Chart = -1
 Response = -1
 col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = [], [], [], [], [], [], [], [], [], []
@@ -16,9 +16,10 @@ col11, col12, col13, col14, col15, col16, col17, col18, col19, col20 = [], [], [
 col21, col22, col23, col24, col25 = [], [], [], [], []
 percentile = 60.0
 
-def setObjecABCValues(product, scf_bo, bc_mmscfg, oilPrice, oilSD, gasPrice, gasSD, oilPerc, gasPerc, royalty, priceUC, fixedCost, indProdCost, oilProdCost, gasProdCost, outputExcelFile, hedgedExcelFile):
-    global Response, Product, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile
+def setObjecABCValues(product, prod_perc, scf_bo, bc_mmscfg, oilPrice, oilSD, gasPrice, gasSD, oilPerc, gasPerc, royalty, priceUC, fixedCost, indProdCost, oilProdCost, gasProdCost, outputExcelFile, hedgedExcelFile):
+    global Response, Product, Prod_perc, Scf_bo, Bc_mmscfg, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, OutputExcelFile, HedgedExcelFile
     Product = product
+    Prod_perc = prod_perc
     Scf_bo = scf_bo
     Bc_mmscfg = bc_mmscfg
     OilPrice = oilPrice
@@ -42,7 +43,7 @@ def setObjecABCValues(product, scf_bo, bc_mmscfg, oilPrice, oilSD, gasPrice, gas
 
 
 def getExcel():
-    global df, percentile, col7, col8, col9, col10, OutputExcelFile, HedgedExcelFile
+    global df, Prod_perc, percentile, col7, col8, col9, col10, OutputExcelFile, HedgedExcelFile
 
     import_file_path = OutputExcelFile
     df = pd.read_excel(import_file_path)
@@ -54,8 +55,8 @@ def getExcel():
     col9 = df_hedged.iloc[:, [2]]
     col10 = df_hedged.iloc[:, [3]]
 
-    percentile = df.iloc[0][2] * 100
-    df = df[4:]
+    percentile = Prod_perc
+    df = df[1:]
     print(df)
 
     x_og = df.iloc[:, [0]]
@@ -148,7 +149,7 @@ def percentageList(T, Q_oil, Q_gas, T_ext, Q_pred_oil, Q_pred_gas):
 
     std_dev_oil = math.sqrt(denominator_oil / len(Q_oil))
     std_dev_gas = math.sqrt(denominator_gas / len(Q_gas))
-    perc = percentile
+    perc = int(percentile)
 
     z_val = getZ(perc)
     lower_bound_oil = []
@@ -209,7 +210,7 @@ def create_gas_table():
 def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_gas):
     global Response, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, \
         col11, col12, col13, col14, col15, col16, col17, col18, col19, \
-        col20, col21, col22, col23, col24, col25, FixedCost, InProdCost, Scf_bo, Royalty, OilProdCost, GasProdCost
+        col20, col21, col22, col23, col24, col25, FixedCost, InProdCost, Product, Scf_bo, Bc_mmscfg, Royalty, OilProdCost, GasProdCost
 
     col1 = perc_line_oil[35:48]
     col2 = perc_line_gas[35:48]
@@ -274,7 +275,10 @@ def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_g
     col21 = [InProdCost] * 12
 
     for i in range(12):
-        col2[i] = (col1[i] * float(Scf_bo)) / 1000
+        if Product == "oil":
+            col2[i] = (col1[i] * float(Scf_bo)) / 1000
+        else:
+            col2[i] = (col1[i] * float(Bc_mmscfg)) / 1000
         col3.append(30.42 * col1[i])
         col4.append(30.42 * col2[i])
 

@@ -3,6 +3,7 @@ from django.db import models
 class ObjABCModel(models.Model):
     product = models.CharField(max_length=125, blank=False, null=False)
 
+    prod_percentile = models.FloatField(default=60, blank=False, null=False)
     scf_bo = models.FloatField(blank=False, null=False)
     bc_mmscfg = models.FloatField(blank=False, null=False)
 
