@@ -4,8 +4,8 @@ class ObjABCModel(models.Model):
     product = models.CharField(max_length=125, blank=False, null=False)
 
     prod_percentile = models.FloatField(default=60, blank=False, null=False)
-    scf_bo = models.FloatField(blank=False, null=False)
-    bc_mmscfg = models.FloatField(blank=False, null=False)
+    scf_bo = models.FloatField(blank=True, null=True)
+    bc_mmscfg = models.FloatField(blank=True, null=True)
 
     oilPrice = models.FloatField(blank=False, null=False)
     oilSD = models.FloatField(blank=False, null=False)

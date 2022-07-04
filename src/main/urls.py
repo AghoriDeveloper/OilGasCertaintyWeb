@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('ObjectA.urls'), name="obj-a"),
     path('obj-a/', include('ObjectA.urls')),
     path('obj-b/', include('ObjectB.urls')),
+    path('obj-c/', include('ObjectC.urls')),
     path('obj-abc/', include('ObjectABC.urls')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('image/favicon.ico')))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
