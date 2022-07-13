@@ -212,8 +212,8 @@ def create_excel(T_ext, base_line_oil, base_line_gas, perc_line_oil, perc_line_g
         col11, col12, col13, col14, col15, col16, col17, col18, col19, \
         col20, col21, col22, col23, col24, col25, FixedCost, InProdCost, Product, Scf_bo, Bc_mmscfg, Royalty, OilProdCost, GasProdCost
 
-    col1 = perc_line_oil[35:48]
-    col2 = perc_line_gas[35:48]
+    col1 = perc_line_oil[-12:]
+    col2 = perc_line_gas[-12:]
 
     col7 = col7.values.tolist()
     col8 = col8.values.tolist()

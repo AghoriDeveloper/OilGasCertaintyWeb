@@ -204,8 +204,8 @@ def create_gas_table():
 def create_excel():
     global Response, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD, Excel_input
 
-    col1 = Excel_input[0][36:]
-    col3 = Excel_input[1][36:]
+    col1 = Excel_input[0][-12:]
+    col3 = Excel_input[1][-12:]
     col5 = [float(FixedCost)] * 12
     col8 = [float(InProdCost)] * 12
 
