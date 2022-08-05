@@ -8,7 +8,7 @@ import xlsxwriter
 import os
 from django.conf import settings
 
-Threshold, CurveType, ExcelFile, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD = 0, 0, 0, 0, 0, 0, 0, 0, 0
+Product, Threshold, BC_MMSCFG, GOR, CurveType, ExcelFile, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 Chart = -1
 Response = -1
 col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = [], [], [], [], [], [], [], [], [], []
@@ -17,9 +17,12 @@ col21, col22, col23, col24, col25 = [], [], [], [], []
 percentile = 60.0
 Excel_input = None
 
-def setObjecCValues(threshold, curveType, excelFile, fixedCost, indProdCost, oilProdCost, gasProdCost, costBelowPerc, indProdSD):
-    global Threshold, CurveType, ExcelFile, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD
+def setObjecCValues(product, threshold, bc_mmscfg, gor, curveType, excelFile, fixedCost, indProdCost, oilProdCost, gasProdCost, costBelowPerc, indProdSD):
+    global Product, Threshold, BC_MMSCFG, GOR, CurveType, ExcelFile, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD
+    Product = product
     Threshold = threshold
+    BC_MMSCFG = bc_mmscfg
+    GOR = gor
     CurveType = curveType
     ExcelFile = excelFile
     FixedCost = fixedCost
@@ -81,10 +84,18 @@ def getZ(perc):
 
 
 def create_excel():
-    global Response, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD, Excel_input
+    global Response, Product, BC_MMSCFG, GOR, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD, Excel_input
 
-    col1 = Excel_input[0][-12:]
-    col3 = Excel_input[1][-12:]
+    col1, col3 = [], []
+    if Product == 'oil':
+        col1 = Excel_input[0][-12:]
+        for i in range(12):
+            col3.append((float(GOR) * col1[i])/100)
+    else:
+        col3 = Excel_input[1][-12:]
+        for i in range(12):
+            col1.append((float(BC_MMSCFG) * col3[i])/100)
+
     col5 = [float(FixedCost)] * 12
     # col8 = [float(InProdCost)] * 12
 
@@ -317,10 +328,12 @@ def declinePercentageLine(T, Q_oil, Q_gas, Q_Pred_oil, Q_Pred_gas):
 
     if CurveType == "hyperbolic":
         # Excel_input = [T_ext, Q_Pred_oil, Q_Pred_gas, pred_hyp_oil, pred_hyp_gas, Threshold]
-        Excel_input = [Q_Pred_oil, pred_hyp_oil]
+        # print(Excel_input)
+        Excel_input = [pred_hyp_oil, pred_hyp_gas]
     elif CurveType == "exponential":
         # Excel_input = [T_ext, Q_Pred_oil, Q_Pred_gas, pred_exp_oil, pred_exp_gas, Threshold]
-        Excel_input = [Q_Pred_oil, pred_exp_oil]
+        # print(Excel_input)
+        Excel_input = [pred_exp_oil, pred_exp_gas]
     # print(Excel_input[0][36:])
     # print(Excel_input[1][36:])
     # print(Excel_input)

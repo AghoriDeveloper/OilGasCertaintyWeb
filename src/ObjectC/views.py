@@ -10,7 +10,7 @@ def index(request):
         objc = ObjCForm(request.POST)
         if objc.is_valid():
             import_file_path = request.FILES['excelInput']
-            response = setObjecCValues(objc['threshold'].value(), objc['curveType'].value(), import_file_path, objc['fixedCost'].value(), objc['indProdCost'].value(), objc['oilProdCost'].value(), objc['gasProdCost'].value(), objc['costBelowPerc'].value(), objc['indProdSD'].value())
+            response = setObjecCValues(objc['product'].value(), objc['threshold'].value(), objc['bc_mmscfg'].value(), objc['gor'].value(), objc['curveType'].value(), import_file_path, objc['fixedCost'].value(), objc['indProdCost'].value(), objc['oilProdCost'].value(), objc['gasProdCost'].value(), objc['costBelowPerc'].value(), objc['indProdSD'].value())
             return response
             objc.save()
 
