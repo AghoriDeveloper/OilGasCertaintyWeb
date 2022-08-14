@@ -25,9 +25,9 @@
                         </div>
 
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
-                            <label for="id_prod_percentile" class="col-sm-3 control-label" style="font-weight: bold;">Probability of Exceeding (%)</label>
+                            <label for="id_threshold" class="col-sm-3 control-label" style="font-weight: bold;">Probability of Exceeding (%)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="prod_percentile" id="id_prod_percentile" class="form-control" class="form-input-number" step=".01" required />
+                                <input type="number" name="threshold" id="id_threshold" class="form-control" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -35,17 +35,17 @@
 
                     <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
-                            <label for="id_scf_bo" class="col-sm-3 control-label" style="font-weight: bold;">Oil</label>
+                            <label for="id_bc_mmscfg" class="col-sm-3 control-label" style="font-weight: bold;">BB_MMSCFG</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="scf_bo" id="id_scf_bo" class="form-control" placeholder="560" class="form-input-number" step=".01" required />
+                                <input type="number" name="bc_mmscfg" id="id_bc_mmscfg" class="form-control" class="form-input-number" step=".01" required disabled />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
 
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
-                            <label for="id_bc_mmscfg" class="col-sm-3 control-label" style="font-weight: bold;">Gas</label>
+                            <label for="id_gor" class="col-sm-3 control-label" style="font-weight: bold;">GOR</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="bc_mmscfg" id="id_bc_mmscfg" class="form-control" placeholder="56" class="form-input-number" step=".01" required disabled />
+                                <input type="number" name="gor" id="id_gor" class="form-control" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -53,14 +53,35 @@
 
                     <div class="division-block">
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
-                            <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Previous 36 Months</label>
-                            <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="file" name="outputFileInput" id="id_outputFileInput" class="form-control" required>
+                            <label for="id_curveType" class="col-sm-3 control-label" style="font-weight: bold;">Hyperbolic or Exponential</label>
+                            <div class="col-sm-2" style="padding-top: 1%;">
+                                <select name="curveType" id="id_curveType" class="form-control" class="form-input-option" required >
+                                    <option value="hyperbolic">Hyperbolic</option>
+                                    <option value="exponential">Exponential</option>
+                                </select>
                             </div>
-                            <div class="col-sm-3"></div>
+                            <div class="col-sm-7"></div>
                         </div>
 
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
+                            <label for="id_excelInput" class="col-sm-3 control-label" style="font-weight: bold;">Excel Input</label>
+                            <div class="col-sm-6" style="padding-top: 1%;">
+                                <input type="file" name="excelInput" id="id_excelInput" class="form-control" class="form-input-number" required />
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="division-block">
+<!--                        <div class="form-group" style="flex: 0.5; padding-top: 2%;">-->
+<!--                            <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Previous 36 Months</label>-->
+<!--                            <div class="col-sm-6" style="padding-top: 1%;">-->
+<!--                                <input type="file" name="outputFileInput" id="id_outputFileInput" class="form-control" required>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-3"></div>-->
+<!--                        </div>-->
+
+                        <div class="form-group" style="flex: 1; padding-top: 2%;">
                             <label class="col-sm-3 control-label" style="font-weight: bold;">Excel File of Hedged Values</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
                                 <input type="file" name="hedgedFileInput" id="id_hedgedExcelFile" class="form-control" placeholder="Upload file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>

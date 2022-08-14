@@ -1,11 +1,14 @@
 from django.db import models
 
 class ObjABCModel(models.Model):
-    product = models.CharField(max_length=125, blank=False, null=False)
+    product = models.CharField(default="oil", max_length=200, blank=False, null=False)
+    threshold = models.FloatField(default=1.0, blank=False, null=False)
+    bc_mmscfg = models.FloatField(default=1.0, blank=True, null=True)
+    gor = models.FloatField(default=1.0, blank=True, null=True)
+    curveType = models.CharField(default="hyperbolic", max_length=200, blank=False, null=False)
 
-    prod_percentile = models.FloatField(default=60, blank=False, null=False)
-    scf_bo = models.FloatField(blank=True, null=True)
-    bc_mmscfg = models.FloatField(blank=True, null=True)
+    excelInput = models.FileField(upload_to='media', default='media/declinecurve_input.xlsx', blank=False, null=False)
+    hedgedFileInput = models.FileField(upload_to='media', default='media/expense_hedged_input.xlsx', blank=False, null=False)
 
     oilPrice = models.FloatField(blank=False, null=False)
     oilSD = models.FloatField(blank=False, null=False)
@@ -21,9 +24,6 @@ class ObjABCModel(models.Model):
     indProdCost = models.FloatField(blank=False, null=False)
     oilProdCost = models.FloatField(blank=False, null=False)
     gasProdCost = models.FloatField(blank=False, null=False)
-
-    outputFileInput = models.FileField(upload_to='media', default='media/expense_declinedcurve_input.xlsx', blank=False, null=False)
-    hedgedFileInput = models.FileField(upload_to='media', default='media/expense_hedged_input.xlsx', blank=False, null=False)
 
     def __str__(self):
         return self.oilPrice + ' ' + self.gasPrice
