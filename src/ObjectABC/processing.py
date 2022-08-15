@@ -8,7 +8,7 @@ import xlsxwriter
 import os
 from django.conf import settings
 
-Product, Threshold, BC_MMSCFG, GOR, CurveType, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, ExcelFile, HedgedExcelFile = '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''
+Product, Threshold, BC_MMSCFG, GOR, CurveType, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD, ExcelFile, HedgedExcelFile = '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''
 Chart = -1
 Response = -1
 col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = [], [], [], [], [], [], [], [], [], []
@@ -16,8 +16,8 @@ col11, col12, col13, col14, col15, col16, col17, col18, col19, col20 = [], [], [
 col21, col22, col23, col24, col25 = [], [], [], [], []
 percentile = 60.0
 
-def setObjecABCValues(product, threshold, bc_mmscfg, gor, curveType, oilPrice, oilSD, gasPrice, gasSD, oilPerc, gasPerc, royalty, priceUC, fixedCost, indProdCost, oilProdCost, gasProdCost, excelFile, hedgedExcelFile):
-    global Response, Product, Threshold, BC_MMSCFG, GOR, CurveType, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, ExcelFile, HedgedExcelFile
+def setObjecABCValues(product, threshold, bc_mmscfg, gor, curveType, oilPrice, oilSD, gasPrice, gasSD, oilPerc, gasPerc, royalty, priceUC, fixedCost, indProdCost, oilProdCost, gasProdCost, costBelowPerc, indProdSD, excelFile, hedgedExcelFile):
+    global Response, Product, Threshold, BC_MMSCFG, GOR, CurveType, OilPrice, OilSD, GasPrice, GasSD, OilPerc, GasPerc, Royalty, PriceUC, FixedCost, InProdCost, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD, ExcelFile, HedgedExcelFile
     Product = product
     Threshold = threshold
     BC_MMSCFG = bc_mmscfg
@@ -35,6 +35,8 @@ def setObjecABCValues(product, threshold, bc_mmscfg, gor, curveType, oilPrice, o
     InProdCost = indProdCost
     OilProdCost = oilProdCost
     GasProdCost = gasProdCost
+    CostBelowPerc = costBelowPerc
+    IndProdSD = indProdSD
     ExcelFile = excelFile
     HedgedExcelFile = hedgedExcelFile
 
@@ -48,8 +50,6 @@ def setObjecABCValues(product, threshold, bc_mmscfg, gor, curveType, oilPrice, o
 def getExcel():
     global df, Threshold, percentile, col7, col8, col9, col10, OutputExcelFile, HedgedExcelFile
 
-    # import_file_path = OutputExcelFile
-    # df = pd.read_excel(import_file_path)
     import_file_path = HedgedExcelFile
     df_hedged = pd.read_excel(import_file_path)
 
@@ -59,22 +59,6 @@ def getExcel():
     col10 = df_hedged.iloc[:, [3]]
 
     percentile = Threshold
-    # df = df[1:]
-    # print(df)
-
-    # x_og = df.iloc[:, [0]]
-    # y_oil_og = df.iloc[:, [1]]
-    # y_gas_og = df.iloc[:, [2]]
-
-    # X = x_og[df.columns[0]].tolist()
-    # Y_oil = y_oil_og[df.columns[1]].tolist()
-    # Y_gas = y_gas_og[df.columns[2]].tolist()
-
-    # X = np.array(X, dtype=np.float64)
-    # Y_oil = np.array(Y_oil, dtype=np.float64)
-    # Y_gas = np.array(Y_gas, dtype=np.float64)
-
-    # plotCurve(X, Y_oil, Y_gas)
 
 
 def decline_curve(curve_type, q_i):
@@ -305,10 +289,25 @@ def create_gas_table():
     return gas_perc
 
 
+def getZ(perc):
+    if perc >= 50:
+        val = (perc - 50) / 100
+    else:
+        val = (50 - perc) / 100
+
+    df = pd.read_csv(os.path.join(settings.BASE_DIR, "ObjectB/static/main/preData/z_table.csv"))
+    df = df.drop('z', 1)
+    val_list = df.values.tolist()
+
+    for i in range(len(val_list)):
+        for j in range(len(val_list[i])):
+            if val_list[i][j] > val:
+                z_val = (i / 10) + (j / 100)
+                return z_val
+
+
 def create_excel():
-    global Response, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, \
-        col11, col12, col13, col14, col15, col16, col17, col18, col19, \
-        col20, col21, col22, col23, col24, col25, FixedCost, InProdCost, Product, BC_MMSCFG, GOR, Royalty, OilProdCost, GasProdCost
+    global Response, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24, col25, FixedCost, InProdCost, Product, BC_MMSCFG, GOR, Royalty, OilProdCost, GasProdCost, CostBelowPerc, IndProdSD
 
     col1, col2 = [], []
     if Product == 'oil':
@@ -377,7 +376,6 @@ def create_excel():
     col11 = create_table()
     col15 = create_gas_table()
     col20 = [FixedCost] * 12
-    col21 = [InProdCost] * 12
 
     for i in range(12):
         col3.append(30.42 * col1[i])
@@ -393,6 +391,11 @@ def create_excel():
         col13.append(col7[i][0] * col8[i][0])
         col17.append(col9[i][0] * col10[i][0])
 
+    varIndProd = getZ(int(CostBelowPerc))
+    varIndProd *= float(IndProdSD)
+    varIndProd += float(InProdCost)
+    for i in range(12):
+        col21.append(varIndProd)
         col22.append(col3[i] * float(OilProdCost))
         col23.append(col4[i] * float(GasProdCost))
 

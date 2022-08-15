@@ -10,20 +10,22 @@ class ObjABCModel(models.Model):
     excelInput = models.FileField(upload_to='media', default='media/declinecurve_input.xlsx', blank=False, null=False)
     hedgedFileInput = models.FileField(upload_to='media', default='media/expense_hedged_input.xlsx', blank=False, null=False)
 
-    oilPrice = models.FloatField(blank=False, null=False)
-    oilSD = models.FloatField(blank=False, null=False)
-    gasPrice = models.FloatField(blank=False, null=False)
-    gasSD = models.FloatField(blank=False, null=False)
-    oilPerc = models.FloatField(blank=False, null=False)
-    gasPerc = models.FloatField(blank=False, null=False)
+    oilPrice = models.FloatField(default=1.0, blank=False, null=False)
+    oilSD = models.FloatField(default=1.0, blank=False, null=False)
+    gasPrice = models.FloatField(default=1.0, blank=False, null=False)
+    gasSD = models.FloatField(default=1.0, blank=False, null=False)
+    oilPerc = models.FloatField(default=1.0, blank=False, null=False)
+    gasPerc = models.FloatField(default=1.0, blank=False, null=False)
 
     royalty = models.FloatField(blank=False, null=False)
     priceUC = models.CharField(max_length=125, blank=False, null=False)
 
-    fixedCost = models.FloatField(blank=False, null=False)
-    indProdCost = models.FloatField(blank=False, null=False)
-    oilProdCost = models.FloatField(blank=False, null=False)
-    gasProdCost = models.FloatField(blank=False, null=False)
+    fixedCost = models.FloatField(default=1.0, blank=False, null=False)
+    indProdCost = models.FloatField(default=1.0, blank=False, null=False)
+    oilProdCost = models.FloatField(default=1.0, blank=False, null=False)
+    gasProdCost = models.FloatField(default=1.0, blank=False, null=False)
+    costBelowPerc = models.FloatField(default=1.0, blank=False, null=False)
+    indProdSD = models.FloatField(default=1.0, blank=False, null=False)
 
     def __str__(self):
         return self.oilPrice + ' ' + self.gasPrice

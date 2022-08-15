@@ -177,7 +177,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_fixedCost" class="col-sm-3 control-label" style="font-weight: bold;">Fixed Cost ($/Month)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="fixedCost" id="id_fixedCost" class="form-control" placeholder="11000" class="form-input-number" step=".01" required />
+                                <input type="number" name="fixedCost" id="id_fixedCost" class="form-control" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -185,7 +185,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_indProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost Independent of Production ($/Month)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="indProdCost" id="id_indProdCost" class="form-control" placeholder="5000" class="form-input-number" step=".01" required />
+                                <input type="number" name="indProdCost" id="id_indProdCost" class="form-control" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -195,7 +195,7 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_oilProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost based on Oil Production ($/bbl)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="oilProdCost" id="id_oilProdCost" class="form-control" placeholder="9" class="form-input-number" step=".01" required />
+                                <input type="number" name="oilProdCost" id="id_oilProdCost" class="form-control" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -203,7 +203,25 @@
                         <div class="form-group" style="flex: 0.5; padding-top: 2%;">
                             <label for="id_gasProdCost" class="col-sm-3 control-label" style="font-weight: bold;">Variable Cost based on Gas Production ($/MSCFG)</label>
                             <div class="col-sm-6" style="padding-top: 1%;">
-                                <input type="number" name="gasProdCost" id="id_gasProdCost" class="form-control" placeholder="0.55" class="form-input-number" step=".01" required />
+                                <input type="number" name="gasProdCost" id="id_gasProdCost" class="form-control" class="form-input-number" step=".01" required />
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="division-block">
+                        <div class="form-group" style="flex: 0.5; padding-top: 2%;">
+                            <label for="id_costBelowPerc" class="col-sm-3 control-label" style="font-weight: bold;">Percentile Chance of Total Cost being Below (%)</label>
+                            <div class="col-sm-6" style="padding-top: 1%;">
+                                <input type="number" name="costBelowPerc" id="id_costBelowPerc" class="form-control" class="form-input-number" step=".01" required />
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
+
+                        <div class="form-group" style="flex: 0.5; padding-top: 2%;">
+                            <label for="id_indProdSD" class="col-sm-3 control-label" style="font-weight: bold;">Standard Deviation of Variable Cost Independent of Production ($/Month)</label>
+                            <div class="col-sm-6" style="padding-top: 1%;">
+                                <input type="number" name="indProdSD" id="id_indProdSD" class="form-control" class="form-input-number" step=".01" required />
                             </div>
                             <div class="col-sm-3"></div>
                         </div>

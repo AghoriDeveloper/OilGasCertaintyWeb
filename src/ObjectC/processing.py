@@ -140,9 +140,7 @@ def create_excel():
     varIndProd *= float(IndProdSD)
     varIndProd += float(InProdCost)
     for i in range(12):
-        # col6.append(col2[i] * float(OilProdCost))
         col6.append(varIndProd)
-        # col7.append(col4[i] * float(GasProdCost))
         col7.append(col2[i] * float(OilProdCost))
         col8.append(col4[i] * float(GasProdCost))
 
