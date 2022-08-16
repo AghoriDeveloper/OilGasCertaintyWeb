@@ -133,8 +133,8 @@ def create_excel():
 
     col2, col4, col6, col7, col9 = [], [], [], [], []
     for i in range(12):
-        col2.append(col1[i] + 30.42)
-        col4.append(col3[i] + 30.42)
+        col2.append(col1[i] * 30.42)
+        col4.append(col3[i] * 30.42)
 
     varIndProd = getZ(int(CostBelowPerc))
     varIndProd *= float(IndProdSD)
