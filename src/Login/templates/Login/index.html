@@ -8,6 +8,12 @@
                 <p class="page-title">Login</p>
             </div>
 
+            {% if warning %}
+                <div style="width: 30%; color: red; margin: auto; background: #f002; padding: 1% 5%; border-radius: 10px; border: 1px red solid;">
+                    {{ warning }}
+                </div>
+            {% endif %}
+
             <div>
                 <form method="POST" class="post-form" enctype="multipart/form-data">
                     {% csrf_token %}

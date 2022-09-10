@@ -6,39 +6,56 @@ from .forms import LoginForm
 # from .processing import setObjecCValues
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+import mysql.connector as sql
 
 
 def index(request):
+    global warning
     login = LoginForm()
 
     if request.method == 'POST':
+        warning = False
         login = LoginForm(request.POST)
         if login.is_valid():
-            print(login['email'].value(), login['password'].value())
-            # response = setObjecCValues(objc['product'].value(), objc['threshold'].value(), objc['bc_mmscfg'].value(), objc['gor'].value(), objc['curveType'].value(), import_file_path, objc['fixedCost'].value(), objc['indProdCost'].value(), objc['oilProdCost'].value(), objc['gasProdCost'].value(), objc['costBelowPerc'].value(), objc['indProdSD'].value())
-            # return response
-            # objc.save()
-
             username = request.POST['email']
             password = request.POST['password']
 
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login
-                request.session['authentication'] = True
-                print("login successful...")
-                return render(request, "ObjectA/index.html")
-            else:
-                userModel = User.objects.create_user(username, username, password)
-                userModel.save()
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login
-                    request.session['authentication'] = True
-                    print("login successful...")
-                    return render(request, "ObjectA/index.html")
+            m = sql.connect(host="localhost", user="root", passwd="", database="OilGasCertainty")
+            # m = sql.connect(host="localhost", user="oilgascertainty_user", passwd="OGCUser@321", database="oilgascertainty")
+            cursor = m.cursor()
+            sql_query = "SELECT * FROM users WHERE email='{}'".format(username)
+            cursor.execute(sql_query)
+            data = tuple(cursor.fetchall())
+
+            if data != ():
+                m = sql.connect(host="localhost", user="root", passwd="", database="OilGasCertainty")
+                # m = sql.connect(host="localhost", user="oilgascertainty_user", passwd="OGCUser@321", database="oilgascertainty")
+                cursor = m.cursor()
+                sql_query = "SELECT * FROM users WHERE email='{}' AND password ='{}'".format(username, password)
+                cursor.execute(sql_query)
+                data = tuple(cursor.fetchall())
+
+                if data != ():
+                    user = authenticate(request, username=username, password=password)
+                    if user is not None:
+                        request.session['authentication'] = True
+                        print("login successful...")
+                        return render(request, "ObjectA/index.html")
+                    else:
+                        userModel = User.objects.create_user(username, username, password)
+                        userModel.save()
+                        user = authenticate(request, username=username, password=password)
+                        if user is not None:
+                            request.session['authentication'] = True
+                            print("login successful...")
+                            return render(request, "ObjectA/index.html")
+                        else:
+                            print("login failed...")
                 else:
-                    print("login failed...")
+                    return render(request, "Login/index.html", {"warning": "Wrong Credentials !!!"})
+
+            else:
+                return render(request, "Login/index.html", {"warning": "Email doesn't exists..."})
 
     # return render(request, "Login/index.html", {'form': objc})
     return render(request, "Login/index.html")
