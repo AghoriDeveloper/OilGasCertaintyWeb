@@ -14,8 +14,6 @@ class ObjABCModel(models.Model):
     oilSD = models.FloatField(default=1.0, blank=False, null=False)
     gasPrice = models.FloatField(default=1.0, blank=False, null=False)
     gasSD = models.FloatField(default=1.0, blank=False, null=False)
-    oilPerc = models.FloatField(default=1.0, blank=False, null=False)
-    gasPerc = models.FloatField(default=1.0, blank=False, null=False)
 
     royalty = models.FloatField(blank=False, null=False)
     priceUC = models.CharField(max_length=125, blank=False, null=False)
