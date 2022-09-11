@@ -61,6 +61,7 @@
           display: flex;
           -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+          flex-direction: row-reverse;
           -webkit-box-flex: 1;
           -ms-flex: 1;
           flex: 1;
@@ -237,6 +238,7 @@
                     <li><a href="obj-abc/" class="inactive-menu">Decline Curve + Product Price + Expense</a></li>
                     <li><a href="logout/" class="inactive-menu">Logout</a></li>
                 {% else %}
+                    <li><a href="register/" class="inactive-menu">Register</a></li>
                     <li><a href="login/" class="inactive-menu">Login</a></li>
                 {% endif %}
             </ul>

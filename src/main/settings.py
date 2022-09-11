@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'ObjectC',
     'ObjectABC',
     'Login',
+    'Register',
 
     'django.contrib.admin',
     'django.contrib.auth',
