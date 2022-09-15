@@ -20,12 +20,29 @@ def index(request):
             password = request.POST['password']
             password2 = request.POST['password2']
 
+            if request.POST.get('obja', False) != False:
+                obja = 1
+            else:
+                obja = 0
+            if request.POST.get('objb', False) != False:
+                objb = 1
+            else:
+                objb = 0
+            if request.POST.get('objc', False) != False:
+                objc = 1
+            else:
+                objc = 0
+            if request.POST.get('objabc', False) != False:
+                objabc = 1
+            else:
+                objabc = 0
+
             if password == password2:
                 m = sql.connect(host="localhost", user="root", passwd="", database="OilGasCertainty")
                 # m = sql.connect(host="localhost", user="oilgascertainty_user", passwd="OGCUser@321", database="oilgascertainty")
                 cursor = m.cursor()
-                sql_query = "INSERT INTO users (name, email, password) VALUES ('{}', '{}', '{}')".format(name, username, password)
-                print(sql_query)
+                sql_query = "INSERT INTO users (name, email, password, obja, objb, objc, objabc) VALUES ('{}', '{}', '{}', {}, {}, {}, {})".format(name, username, password, obja, objb, objc, objabc)
+
                 try:
                     cursor.execute(sql_query)
                 except mysql.connector.errors.IntegrityError:
