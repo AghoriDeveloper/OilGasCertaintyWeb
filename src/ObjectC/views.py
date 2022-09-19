@@ -14,4 +14,7 @@ def index(request):
             return response
             objc.save()
 
-    return render(request, "ObjectC/index.html", {'form': objc})
+    if request.session['objc'] == 1:
+        return render(request, "ObjectC/index.html", {'form': objc})
+    else:
+        raise Http404

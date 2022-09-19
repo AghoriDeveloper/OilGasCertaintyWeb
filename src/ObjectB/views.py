@@ -3,7 +3,7 @@ import os
 
 import xlsxwriter
 import xlwt
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .forms import ObjBForm
 from .processing import setObjecBValues
@@ -32,7 +32,10 @@ def index(request):
 
             return render(request, "ObjectB/chart.html", {'chartoil': chartoil, 'chartgas': chartgas, 'chartoillist': chartoillist, 'chartgaslist': chartgaslist})
 
-    return render(request, "ObjectB/index.html", {'form': objb})
+    if request.session['objb'] == 1:
+        return render(request, "ObjectB/index.html", {'form': objb})
+    else:
+        raise Http404
 
 
 def downloadexcel(request):

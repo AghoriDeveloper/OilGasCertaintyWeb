@@ -16,4 +16,7 @@ def index(request):
             return response
             objabc.save()
 
-    return render(request, "ObjectABC/index.html", {'form': objabc})
+    if request.session['objabc'] == 1:
+        return render(request, "ObjectABC/index.html", {'form': objabc})
+    else:
+        raise Http404

@@ -1,4 +1,7 @@
 import sys
+
+from django.http import HttpResponseRedirect
+
 sys.path.append("..")
 
 from django.shortcuts import render
@@ -16,6 +19,7 @@ def index(request):
     if request.method == 'POST':
         warning = False
         login = LoginForm(request.POST)
+
         if login.is_valid():
             username = request.POST['email']
             password = request.POST['password']
@@ -35,20 +39,35 @@ def index(request):
                 cursor.execute(sql_query)
                 data = tuple(cursor.fetchall())
 
+                request.session['user_id'] = data[0][0]
+                request.session['user_name'] = data[0][1]
+                request.session['user_email'] = data[0][2]
+                request.session['obja'] = data[0][4]
+                request.session['objb'] = data[0][5]
+                request.session['objc'] = data[0][6]
+                request.session['objabc'] = data[0][7]
+
+                if request.session['obja'] == 1:
+                    object = '/obj-a'
+                elif request.session['objb'] == 1:
+                    object = '/obj-b'
+                elif request.session['objc'] == 1:
+                    object = '/obj-c'
+                elif request.session['objabc'] == 1:
+                    object = '/obj-abc'
+
                 if data != ():
                     user = authenticate(request, username=username, password=password)
                     if user is not None:
                         request.session['authentication'] = True
-                        print("login successful...")
-                        return render(request, "ObjectA/index.html")
+                        return HttpResponseRedirect(object)
                     else:
                         userModel = User.objects.create_user(username, username, password)
                         userModel.save()
                         user = authenticate(request, username=username, password=password)
                         if user is not None:
                             request.session['authentication'] = True
-                            print("login successful...")
-                            return render(request, "ObjectA/index.html")
+                            return HttpResponseRedirect(object)
                         else:
                             print("login failed...")
                 else:
